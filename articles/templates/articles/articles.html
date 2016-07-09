@@ -1,0 +1,17 @@
+{% extends 'articles/base.html' %}
+
+{% block articles %}
+
+<ul id="articles">
+    {% for article in articles %}
+    <li class="article" id="{{ article.id }}">
+        <a href="#">
+            <h2>
+                {{ article.title }}
+            </h2>
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock articles%}
