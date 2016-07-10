@@ -16,7 +16,7 @@ You will need the following things properly installed on your computer.
 * change into the new directory
 * (optional) set up a virtual environment
 * `pip install -r requirements.txt`
-* `cd togethere/static/togethere`
+* `cd articles/static/articles`
 * `npm install`
 
 ## Running / Development
@@ -26,7 +26,7 @@ You will need the following things properly installed on your computer.
 
 And if you want to change templates/css:
 
-* `cd togethere/static/togethere`
+* `cd articles/static/articles`
 * `gulp watch`
 
 Manage data in the admin panel:
@@ -36,7 +36,7 @@ Manage data in the admin panel:
 
 ### Running Tests
 
-* `python manage.py test togethere`
+* `python manage.py test articles`
 * `python manage.py test functional_tests`
 
 ### Deploying
