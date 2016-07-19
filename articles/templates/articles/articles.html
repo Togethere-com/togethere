@@ -2,9 +2,9 @@
 
 {% block articles %}
 
-<ul id="articles">
+<ul class="article-list">
     {% for article in articles %}
-    <li class="article" id="article-id-{{ article.id }}">
+    <li class="article-list_item" id="article_id_{{ article.id }}">
         <a href="#">
             <h2>
                 {{ article.title }}
@@ -14,4 +14,6 @@
     {% endfor %}
 </ul>
 
-{% endblock articles%}
+{% include 'articles/article-form.html' %}
+
+{% endblock articles %}

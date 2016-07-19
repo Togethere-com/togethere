@@ -12,7 +12,7 @@ You will need the following things properly installed on your computer.
 
 ## Installation
 
-* `git clone https://github.com/Flobin/togethere.git` this repository
+* `git clone https://github.com/togethere-com/togethere.git` this repository
 * change into the new directory
 * (optional) set up a virtual environment
 * `pip install -r requirements.txt`

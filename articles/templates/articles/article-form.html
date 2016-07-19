@@ -1,0 +1,32 @@
+<div class="article-form">
+    <h2 class="h3">Submit a new article</h2>
+
+    {% if form.errors %}
+        {% for field in form %}
+            {% for error in field.errors %}
+                <p class="article-form__error">
+                    <strong>{{ error|escape }}</strong>
+                </p>
+            {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+            <p class="article-form__error">
+                <strong>{{ error|escape }}</strong>
+            </p>
+        {% endfor %}
+    {% endif %}
+    <form action="/" method="POST">
+        {% csrf_token %}
+        {% for field in form %}
+            <fieldset class="article-form__field">
+                {{ field.label_tag }} {{ field }}
+                {% if field.help_text %}
+                <p class="help">{{ field.help_text|safe }}</p>
+                {% endif %}
+            </fieldset>
+        {% endfor %}
+        <fieldset class="article-form__field">
+            <input class="button" type="submit" value="submit">
+        </fieldset>
+    </form>
+</div>

@@ -35,6 +35,8 @@ $lighter-grey: lighten($grey,67%);
 $link-color: $purple;
 $link-hover-color: $orange;
 
+$base-border-radius: 0.125em;
+
 @mixin at-least($device-width) {
     @media screen and (min-width: $device-width) {
         @content
@@ -45,6 +47,23 @@ $link-hover-color: $orange;
     @media screen and (max-width: $device-width - 1) {
         @content
     }
+}
+
+%float {
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.18),0 2px 10px 0 rgba(0,0,0,0.15);
+    -moz-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.18),0 2px 10px 0 rgba(0,0,0,0.15);
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.18),0 2px 10px 0 rgba(0,0,0,0.15);
+}
+
+%float-high {
+    -webkit-box-shadow: 0 5px 11px 0 rgba(0,0,0,0.23),0 4px 15px 0 rgba(0,0,0,0.20);
+    -moz-box-shadow: 0 5px 11px 0 rgba(0,0,0,0.23),0 4px 15px 0 rgba(0,0,0,0.20);
+    box-shadow: 0 5px 11px 0 rgba(0,0,0,0.23),0 4px 15px 0 rgba(0,0,0,0.20);
+}
+%text-float {
+  -webkit-text-shadow: -2px 2px 4px rgba(0, 0, 0, 0.3);
+     -moz-text-shadow: -2px 2px 4px rgba(0, 0, 0, 0.3);
+          text-shadow: -2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* ==========================================================================
@@ -80,6 +99,7 @@ button, .button {
     color: #fff;
     background-color: $link-color;
     transition: background-color 0.3s ease-in-out;
+    border-radius: $base-border-radius;
     &:hover, &:focus, &:active, &:visited {
         background-color: $link-hover-color;
     }
@@ -158,19 +178,27 @@ nav {
     display: inline-block;
     margin-right: 1em;
 }
-#site-title {
 
-}
 #auth {
 
 }
 .content {
-    @include at-least($L) {
 
-    }
 }
 .site-footer{
 
+}
+
+/* ==========================================================================
+   #CARDS
+========================================================================== */
+.card {
+    padding: 1em;
+    border: 1px solid $lighter-grey;
+    @extend %float;
+    &__title {
+
+    }
 }
 
 /* ==========================================================================
@@ -188,8 +216,37 @@ nav {
 :-ms-input-placeholder {
     color: $light-grey;
 }
-input[type=text],input[type=url],textarea {
+input[type=text],input[type=url],input[type=email],textarea {
     border: 1px solid $lighter-grey;
     font-size: 0.75rem;
     padding: 0.5rem;
+    border-radius: $base-border-radius;
+    transition: all 0.3s ease-in-out;
+    outline: 0;
+    &:focus {
+        border: 1px solid $link-hover-color;
+    }
+}
+
+.article-form {
+    &__field {
+        margin-top: 1rem;
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+    label {
+        width: 2.75em;
+        display: inline-block;
+    }
+}
+
+/* ==========================================================================
+   #ARTICLES
+========================================================================== */
+.article-list {
+    list-style-type: none;
+}
+.article-list__item {
+    @extend .card;
 }
