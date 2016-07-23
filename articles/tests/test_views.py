@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from articles.views import articles
 from articles.models import Article
 
-class HomePageTest(TestCase):
+class ArticlesPageTest(TestCase):
 
     def setUp(self):
         self.user = User.objects.create(username='testuser')
@@ -12,13 +12,30 @@ class HomePageTest(TestCase):
         self.user.save()
         self.client.login(username='testuser', password='12345')
 
-    def test_home_page_renders_home_template(self):
+    def test_articles_page_renders_home_template(self):
         response = self.client.get('/')
         self.assertTemplateUsed(response, 'articles/articles.html')
 
-    def test_home_page_displays_articles(self):
+    def test_articles_page_displays_articles(self):
         first_article = Article.objects.create(title='foo',text='bla bla bla',author=self.user)
         second_article = Article.objects.create(title='bar',text='bla bla bla bla',author=self.user)
         response = self.client.get('/')
         self.assertContains(response, 'foo')
         self.assertContains(response, 'bar')
+
+class ArticlePageTest(TestCase):
+
+    def setUp(self):
+        self.user = User.objects.create(username='testuser')
+        self.user.set_password('12345')
+        self.user.save()
+        self.client.login(username='testuser', password='12345')
+        first_article = Article.objects.create(title='foo',text='bla bla bla',author=self.user)
+
+    def test_article_page_renders_home_template(self):
+        response = self.client.get('/1/')
+        self.assertTemplateUsed(response, 'articles/article.html')
+
+    def test_article_page_displays_article(self):
+        response = self.client.get('/1/')
+        self.assertContains(response, 'foo')

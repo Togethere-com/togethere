@@ -1,6 +1,10 @@
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from django.contrib.auth.models import User
+
 from selenium import webdriver
 import sys
+
+from articles.models import Article
 
 class FunctionalTest(StaticLiveServerTestCase):
 
@@ -19,6 +23,12 @@ class FunctionalTest(StaticLiveServerTestCase):
             super().tearDownClass()
 
     def setUp(self):
+        self.user = User.objects.create(username='testuser')
+        self.user.set_password('12345')
+        self.user.save()
+        self.client.login(username='testuser', password='12345')
+        first_article = Article.objects.create(title='foo',text='bla bla bla',author=self.user)
+        second_article = Article.objects.create(title='bar',text='bla bla bla bla',author=self.user)
         self.browser = webdriver.Chrome('/usr/local/bin/chromedriver')
         self.browser.implicitly_wait(3)
 

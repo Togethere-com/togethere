@@ -14,3 +14,12 @@ class MainTest(FunctionalTest):
         # Styles are being loaded
         height_of_logo = self.browser.find_element_by_css_selector("#logo").value_of_css_property('height')
         self.assertEqual(height_of_logo, '48px')
+
+        # Sees articles
+        articles = self.browser.find_elements_by_class_name('article-list__item')
+        self.assertGreater(len(articles),0)
+
+        # Can click them to visit the url and a new page/tab actually opens
+        firstarticle = articles[0]
+        firstlink = firstarticle.find_element_by_tag_name('a').click()
+        self.assertGreater(len(self.browser.window_handles), 0)

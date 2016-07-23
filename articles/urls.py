@@ -3,4 +3,5 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.articles, name='articles'),
+    url(r'^(?P<article_id>[0-9]+)/?$', views.article, name='article'),
 ]
