@@ -23,6 +23,14 @@ class ArticlesPageTest(TestCase):
         self.assertContains(response, 'foo')
         self.assertContains(response, 'bar')
 
+    def test_pagination(self):
+        for i in range(27):
+            i = Article.objects.create(title='title number {0}'.format(i),text='bla bla bla time {0}'.format(i),author=self.user)
+        first_page = self.client.get('/')
+        self.assertContains(first_page, "page 1 of")
+        second_page = self.client.get('/?page=2')
+        self.assertContains(second_page, "page 2 of")
+
 class ArticlePageTest(TestCase):
 
     def setUp(self):
