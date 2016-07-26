@@ -1,0 +1,9 @@
+{% extends 'articles/base.html' %}
+
+{% block category %}
+
+<h2>Articles in the category {{category.get_name_display}}</h2>
+
+{% include 'articles/article-list.html' %}
+
+{% endblock category %}

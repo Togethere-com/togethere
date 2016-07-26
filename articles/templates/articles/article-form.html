@@ -19,10 +19,27 @@
         {% csrf_token %}
         {% for field in form %}
             <fieldset class="article-form__field">
+            {% if field.name != "name" %}
                 {{ field.label_tag }} {{ field }}
                 {% if field.help_text %}
                 <p class="help">{{ field.help_text|safe }}</p>
                 {% endif %}
+            {% else %}
+                {{ field.label_tag }}
+                <ul id={{ field.auto_id }}>
+                {% for checkbox in field %}
+                    <li>
+                        {{ checkbox.tag }}
+                        <label for="{{ checkbox.id_for_label }}">
+                            {{ checkbox.choice_label }}
+                        </label>
+                        {% if field.help_text %}
+                        <span class="help">{{ field.help_text|safe }}</span>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+                </ul>
+            {% endif %}
             </fieldset>
         {% endfor %}
         <fieldset class="article-form__field">

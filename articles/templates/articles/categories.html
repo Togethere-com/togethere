@@ -1,0 +1,15 @@
+{% extends 'articles/base.html' %}
+
+{% block categories %}
+
+<h2>Categories</h2>
+
+<ul>
+{% for category in categories %}
+    <li>
+        <a href="{% url 'category' category.id %}">{{ category.get_name_display }}</a>
+    </li>
+{% endfor %}
+</ul>
+
+{% endblock categories %}

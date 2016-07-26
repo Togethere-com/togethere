@@ -27,8 +27,7 @@
                 <img src="{% static 'articles/build/img/togethere-logo.svgz' %}" id="logo" alt="Click this togethere logo to go to the home page" role="img">
             </a>
             <nav role="navigation">
-                <div id="auth">
-                </div>
+                <a href="{% url 'categories' %}">Categories</a>
             </nav>
         </header>
 
@@ -41,6 +40,14 @@
             {% block article %}
 
             {% endblock article %}
+
+            {% block categories %}
+
+            {% endblock categories %}
+
+            {% block category %}
+
+            {% endblock category %}
 
         </div>
 

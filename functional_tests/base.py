@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from selenium import webdriver
 import sys
 
-from articles.models import Article
+from articles.models import Article, Category
 
 class FunctionalTest(StaticLiveServerTestCase):
 
@@ -29,6 +29,10 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.client.login(username='testuser', password='12345')
         first_article = Article.objects.create(title='foo',text='bla bla bla',author=self.user)
         second_article = Article.objects.create(title='bar',text='bla bla bla bla',author=self.user)
+        general_information = Category.objects.create(name='GEN')
+        food_and_drinks = Category.objects.create(name='FOO')
+        first_article.categories.add(general_information)
+        second_article.categories.add(food_and_drinks)
         self.browser = webdriver.Chrome('/usr/local/bin/chromedriver')
         self.browser.implicitly_wait(3)
 

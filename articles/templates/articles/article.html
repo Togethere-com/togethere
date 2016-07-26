@@ -9,6 +9,11 @@
     <section>
         {{ article.text }}
     </section>
+    <footer>
+        Category/ies: {% for category in article.categories.all %}
+            {{ category.get_name_display }}
+            {% endfor %}
+    </footer>
 </article>
 
 {% endblock article %}
