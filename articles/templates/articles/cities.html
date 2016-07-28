@@ -1,0 +1,15 @@
+{% extends 'articles/base.html' %}
+
+{% block cities %}
+
+<h2>Categories</h2>
+
+<ul>
+{% for city in cities %}
+    <li>
+        <a href="{% url 'city' city.id %}">{{ city.get_name_display }}</a>
+    </li>
+{% endfor %}
+</ul>
+
+{% endblock cities %}

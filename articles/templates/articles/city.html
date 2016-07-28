@@ -1,0 +1,9 @@
+{% extends 'articles/base.html' %}
+
+{% block city %}
+
+<h2>Articles in the city {{city.get_name_display}}</h2>
+
+{% include 'articles/article-list.html' %}
+
+{% endblock city %}

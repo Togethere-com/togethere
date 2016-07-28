@@ -27,27 +27,29 @@
                 <img src="{% static 'articles/build/img/togethere-logo.svgz' %}" id="logo" alt="Click this togethere logo to go to the home page" role="img">
             </a>
             <nav role="navigation">
-                <a href="{% url 'categories' %}">Categories</a>
+                <a href="{% url 'categories' %}">Categories</a> | <a href="{% url 'cities' %}">Cities</a>
             </nav>
         </header>
 
         <main class="content container">
 
             {% block articles %}
-
             {% endblock articles %}
 
             {% block article %}
-
             {% endblock article %}
 
             {% block categories %}
-
             {% endblock categories %}
 
             {% block category %}
-
             {% endblock category %}
+
+            {% block cities %}
+            {% endblock cities %}
+
+            {% block city %}
+            {% endblock city %}
 
         </div>
 
