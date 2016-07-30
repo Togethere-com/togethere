@@ -10,9 +10,16 @@
         {{ article.text }}
     </section>
     <footer>
-        Category/ies: {% for category in article.categories.all %}
-            {{ category.get_name_display }}
-            {% endfor %}
+        <span class="meta__category">
+            Category/ies:
+                {% for category in article.categories.all %}
+                    {{ category.get_name_display }}
+                {% endfor %}
+        </span>
+        <br>
+        <span class="meta__city">
+            City: {{ article.city.get_name_display }}
+        </span>
     </footer>
 </article>
 

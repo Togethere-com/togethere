@@ -61,7 +61,7 @@ class Article(models.Model):
     title = models.CharField(max_length=200)
     text = models.TextField()
     categories = models.ManyToManyField(Category)
-    cities = models.ForeignKey(City)
+    city = models.ForeignKey(City)
 
     def __str__(self):
         return self.title

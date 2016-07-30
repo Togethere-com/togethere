@@ -18,8 +18,8 @@ class ArticlesPageTest(TestCase):
 
     def test_articles_page_displays_articles(self):
         amsterdam = City.objects.create(name='AMS')
-        first_article = Article.objects.create(title='foo',text='bla bla bla',author=self.user,cities=amsterdam)
-        second_article = Article.objects.create(title='bar',text='bla bla bla bla',author=self.user,cities=amsterdam)
+        first_article = Article.objects.create(title='foo',text='bla bla bla',author=self.user,city=amsterdam)
+        second_article = Article.objects.create(title='bar',text='bla bla bla bla',author=self.user,city=amsterdam)
         response = self.client.get('/')
         self.assertContains(response, 'foo')
         self.assertContains(response, 'bar')
@@ -27,7 +27,7 @@ class ArticlesPageTest(TestCase):
     def test_articles_pagination(self):
         amsterdam = City.objects.create(name='AMS')
         for i in range(27):
-            i = Article.objects.create(title='title number {0}'.format(i),text='bla bla bla time {0}'.format(i),author=self.user,cities=amsterdam)
+            i = Article.objects.create(title='title number {0}'.format(i),text='bla bla bla time {0}'.format(i),author=self.user,city=amsterdam)
         first_page = self.client.get('/')
         self.assertContains(first_page, "page 1 of")
         second_page = self.client.get('/?page=2')
@@ -41,7 +41,7 @@ class ArticlePageTest(TestCase):
         self.user.save()
         self.client.login(username='testuser', password='12345')
         amsterdam = City.objects.create(name='AMS')
-        first_article = Article.objects.create(title='foo',text='bla bla bla',author=self.user,cities=amsterdam)
+        first_article = Article.objects.create(title='foo',text='bla bla bla',author=self.user,city=amsterdam)
 
     def test_article_page(self):
         response = self.client.get('/1/')
@@ -56,7 +56,7 @@ class CategoriesPageTest(TestCase):
         self.user.save()
         self.client.login(username='testuser', password='12345')
         amsterdam = City.objects.create(name='AMS')
-        article = Article.objects.create(title='foo',text='bla bla bla',author=self.user,cities=amsterdam)
+        article = Article.objects.create(title='foo',text='bla bla bla',author=self.user,city=amsterdam)
         general_information = Category.objects.create(name='GEN')
         article.categories.add(general_information)
 
@@ -73,7 +73,7 @@ class CategoryPageTest(TestCase):
         self.user.save()
         self.client.login(username='testuser', password='12345')
         amsterdam = City.objects.create(name='AMS')
-        article = Article.objects.create(title='foo',text='bla bla bla',author=self.user,cities=amsterdam)
+        article = Article.objects.create(title='foo',text='bla bla bla',author=self.user,city=amsterdam)
         general_information = Category.objects.create(name='GEN')
         article.categories.add(general_information)
 
@@ -90,7 +90,7 @@ class CitiesPageTest(TestCase):
         self.user.save()
         self.client.login(username='testuser', password='12345')
         amsterdam = City.objects.create(name='AMS')
-        article = Article.objects.create(title='foo',text='bla bla bla',author=self.user,cities=amsterdam)
+        article = Article.objects.create(title='foo',text='bla bla bla',author=self.user,city=amsterdam)
 
     def test_cities_page(self):
         response = self.client.get('/cities/')
@@ -105,7 +105,7 @@ class CityPageTest(TestCase):
         self.user.save()
         self.client.login(username='testuser', password='12345')
         amsterdam = City.objects.create(name='AMS')
-        article = Article.objects.create(title='foo',text='bla bla bla',author=self.user,cities=amsterdam)
+        article = Article.objects.create(title='foo',text='bla bla bla',author=self.user,city=amsterdam)
 
     def test_city_page(self):
         response = self.client.get('/city/1/')

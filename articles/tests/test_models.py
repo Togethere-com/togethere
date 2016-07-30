@@ -14,12 +14,12 @@ class ArticleModelTest(TestCase):
 
     def test_can_create_article(self):
         amsterdam = City.objects.create(name='AMS')
-        article = Article.objects.create(title='Article Title',text='Article text',author=self.user,cities=amsterdam)
+        article = Article.objects.create(title='Article Title',text='Article text',author=self.user,city=amsterdam)
         self.assertEqual(Article.objects.count(), 1)
 
     def test_empty_articles_not_allowed(self):
         amsterdam = City.objects.create(name='AMS')
-        article = Article.objects.create(title='',text='',author=self.user,cities=amsterdam)
+        article = Article.objects.create(title='',text='',author=self.user,city=amsterdam)
         with self.assertRaises(ValidationError):
             article.full_clean()
             article.save()
@@ -60,5 +60,5 @@ class CategoryAndCityModelTest(TestCase):
     def test_can_associate_category_and_city_to_article(self):
         general_information = Category.objects.create(name='GEN')
         amsterdam = City.objects.create(name='AMS')
-        article = Article.objects.create(title='Article Title',text='Article text',author=self.user,cities=amsterdam)
+        article = Article.objects.create(title='Article Title',text='Article text',author=self.user,city=amsterdam)
         article.categories.add(general_information)

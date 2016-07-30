@@ -68,6 +68,6 @@ class CityView(ListView):
         return context
 
     def get_queryset(self):
-        return Article.objects.filter(cities=self.kwargs['pk'])
+        return Article.objects.filter(city=self.kwargs['pk'])
 
     template_name = 'articles/city.html'

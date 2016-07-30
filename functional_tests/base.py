@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from selenium import webdriver
 import sys
 
-from articles.models import Article, Category
+from articles.models import Article, Category, City
 
 class FunctionalTest(StaticLiveServerTestCase):
 
@@ -27,8 +27,10 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.user.set_password('12345')
         self.user.save()
         self.client.login(username='testuser', password='12345')
-        first_article = Article.objects.create(title='foo',text='bla bla bla',author=self.user)
-        second_article = Article.objects.create(title='bar',text='bla bla bla bla',author=self.user)
+        amsterdam = City.objects.create(name='AMS')
+        rotterdam = City.objects.create(name='ROT')
+        first_article = Article.objects.create(title='foo',text='bla bla bla',city=amsterdam,author=self.user)
+        second_article = Article.objects.create(title='bar',text='bla bla bla bla',city=rotterdam,author=self.user)
         general_information = Category.objects.create(name='GEN')
         food_and_drinks = Category.objects.create(name='FOO')
         first_article.categories.add(general_information)
