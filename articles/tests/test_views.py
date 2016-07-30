@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
 
-from articles.views import articles, article, categories, category, cities, city
+from articles.views import ArticlesView, ArticleView, CategoriesView, CategoryView, CitiesView, CityView
 from articles.models import Article, Category, City
 
 class ArticlesPageTest(TestCase):

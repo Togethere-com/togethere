@@ -1,71 +1,73 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.urlresolvers import reverse
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from .models import Article, Category, City
 from .forms import ArticleSubmitForm
 
-# Create your views here.
-def articles(request):
-    all_articles = Article.objects.all()
-    paginator = Paginator(all_articles, 25) # Show 25 articles per page
+class ArticlesView(ListView):
+    model = Article
+    context_object_name = 'articles'
+    paginate_by = 25
+    template_name = 'articles/articles.html'
 
-    page = request.GET.get('page')
+    def get_context_data(self, **kwargs):
+        context = super(ArticlesView, self).get_context_data(**kwargs)
+        context['form'] = ArticleSubmitForm(auto_id=True)
+        return context
 
-    form = ArticleSubmitForm(auto_id=True)
-    try:
-        articles = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        articles = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        articles = paginator.page(paginator.num_pages)
-    return render(request, 'articles/articles.html', {'articles': articles, 'form': form})
+class ArticleView(DetailView):
+    model = Article
+    template_name = 'articles/article.html'
 
-def article(request, article_id):
-    article = get_object_or_404(Article, pk=article_id)
-    return render(request, 'articles/article.html', {'article': article})
+class ArticleSubmitView(CreateView):
+    pass
 
-def categories(request):
-    categories = Category.objects.all()
-    return render(request, 'articles/categories.html', {'categories': categories})
+class ArticleUpdateView(UpdateView):
+    pass
 
-def category(request, category_id):
-    category = get_object_or_404(Category, pk=category_id)
-    all_articles = Article.objects.filter(categories=category_id)
-    paginator = Paginator(all_articles, 25) # Show 25 articles per page
+class ArticleDeleteView(DeleteView):
+    pass
 
-    page = request.GET.get('page')
+class CategoriesView(ListView):
+    model = Category
+    context_object_name = 'categories'
+    template_name = 'articles/categories.html'
 
-    form = ArticleSubmitForm(auto_id=True)
-    try:
-        articles = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        articles = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        articles = paginator.page(paginator.num_pages)
-    return render(request, 'articles/category.html', {'category': category, 'articles': articles})
+class CategoryView(ListView):
+    model = Article
+    context_object_name = 'articles'
+    paginate_by = 25
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(CategoryView, self).get_context_data(**kwargs)
+        # Add in a QuerySet of the category
+        context['category'] = Category.objects.get(pk=self.kwargs['pk'])
+        return context
 
-def cities(request):
-    cities = City.objects.all()
-    return render(request, 'articles/cities.html', {'cities': cities})
+    def get_queryset(self):
+        return Article.objects.filter(categories=self.kwargs['pk'])
 
-def city(request, city_id):
-    city = get_object_or_404(City, pk=city_id)
-    all_articles = Article.objects.filter(cities=city_id)
-    paginator = Paginator(all_articles, 25) # Show 25 articles per page
+    template_name = 'articles/category.html'
 
-    page = request.GET.get('page')
+class CitiesView(ListView):
+    model = City
+    context_object_name = 'cities'
+    template_name = 'articles/cities.html'
 
-    form = ArticleSubmitForm(auto_id=True)
-    try:
-        articles = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        articles = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        articles = paginator.page(paginator.num_pages)
-    return render(request, 'articles/city.html', {'city': city, 'articles': articles})
+class CityView(ListView):
+    model = Article
+    context_object_name = 'articles'
+    paginate_by = 25
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(CityView, self).get_context_data(**kwargs)
+        # Add in a QuerySet of the city
+        context['city'] = City.objects.get(pk=self.kwargs['pk'])
+        return context
+
+    def get_queryset(self):
+        return Article.objects.filter(cities=self.kwargs['pk'])
+
+    template_name = 'articles/city.html'
