@@ -1,7 +1,7 @@
 <ul class="article-list">
     {% for article in articles %}
     <li class="article-list__item" id="article_id_{{ article.id }}">
-        <a href="{% url 'article' article.id %}">
+        <a href="{% url 'article' pk=article.id %}">
             <h2>
                 {{ article.title }}
             </h2>

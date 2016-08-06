@@ -1,0 +1,54 @@
+<div class="article-form">
+
+    {% if form.errors %}
+        {% for field in form %}
+            {% for error in field.errors %}
+                <p class="article-form__error">
+                    <strong>{{ error|escape }}</strong>
+                </p>
+            {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+            <p class="article-form__error">
+                <strong>{{ error|escape }}</strong>
+            </p>
+        {% endfor %}
+    {% endif %}
+    <form action="{% url 'article-submit' %}" method="POST">
+        {% csrf_token %}
+        {% for field in form %}
+            <fieldset class="article-form__field">
+            {% if field.name = "categories"%}
+                {{ field.label_tag }}
+                <ul id={{ field.auto_id }}>
+                {% for checkbox in field %}
+                    <li>
+                        {{ checkbox.tag }}
+                        <label for="{{ checkbox.id_for_label }}">
+                            {{ checkbox.choice_label }}
+                        </label>
+                    </li>
+                {% endfor %}
+                </ul>
+            {% elif field.name = "city" %}
+                {{ field.label_tag }}
+                <ul id={{ field.auto_id }}>
+                {% for radio in field %}
+                    <li>
+                        {{ radio.tag }}
+                        <label for="{{ radio.id_for_label }}">
+                            {{ radio.choice_label }}
+                        </label>
+                    </li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                {{ field.label_tag }} {{ field }}
+            {% endif %}
+            </fieldset>
+        {% endfor %}
+        <fieldset class="article-form__field">
+            <input class="button" type="submit" value="save">
+        </fieldset>
+    </form>
+</div>

@@ -93,14 +93,14 @@ button, a {
         outline: none;
   }
 }
-button, .button {
+button, .button, a.button {
     font-size: 0.75rem;
     padding: 0.5em;
     color: #fff;
     background-color: $link-color;
     transition: background-color 0.3s ease-in-out;
     border-radius: $base-border-radius;
-    &:hover, &:focus, &:active, &:visited {
+    &:hover, &:focus, &:active {
         background-color: $link-hover-color;
     }
     &--outline {
@@ -258,7 +258,7 @@ input[type=text],input[type=url],input[type=email],textarea {
     label {
         display: inline-block;
     }
-    #category-name, #city-name {
+    #id_categories, #id_city {
         margin-top: 1em;
         list-style-type: none;
         li {
@@ -269,7 +269,7 @@ input[type=text],input[type=url],input[type=email],textarea {
         label {
             @extend .button--outline;
         }
-        input[type=checkbox] {
+        input[type=checkbox], input[type=radio] {
             display: none;
             &:checked ~ label {
                 color: $link-hover-color;

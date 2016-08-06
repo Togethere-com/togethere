@@ -20,6 +20,14 @@
         <span class="meta__city">
             City: {{ article.city.get_name_display }}
         </span>
+        <br>
+        <span class="meta__update">
+            <a class="button" href="{% url 'article-update' pk=article.id %}">update</a>
+        </span>
+        &nbsp;
+        <span class="meta__delete">
+            <a class="button" href="{% url 'article-delete' pk=article.id %}">delete</a>
+        </span>
     </footer>
 </article>
 

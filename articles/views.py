@@ -1,10 +1,11 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from .models import Article, Category, City
-from .forms import ArticleSubmitForm
+from .forms import ArticleForm
 
 class ArticlesView(ListView):
     model = Article
@@ -14,7 +15,7 @@ class ArticlesView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(ArticlesView, self).get_context_data(**kwargs)
-        context['form'] = ArticleSubmitForm(auto_id=True)
+        context['form'] = ArticleForm
         return context
 
 class ArticleView(DetailView):
@@ -22,13 +23,37 @@ class ArticleView(DetailView):
     template_name = 'articles/article.html'
 
 class ArticleSubmitView(CreateView):
-    pass
+    model = Article
+    form_class = ArticleForm
+    template_name = 'articles/article-submit.html'
+    # set up login required later
+    # @method_decorator(login_required)
+    # def dispatch(self, *args, **kwargs):
+    #     return super(ArticleSubmitView, self).dispatch(*args, **kwargs)
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.author = self.request.user
+        obj.save()
+        form.save_m2m()
+        return HttpResponseRedirect(reverse('article', kwargs={'pk': obj.id}))
 
 class ArticleUpdateView(UpdateView):
-    pass
+    model = Article
+    form_class = ArticleForm
+    template_name_suffix = '-update'
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.author = self.request.user
+        obj.save()
+        form.save_m2m()
+        return HttpResponseRedirect(reverse('article', kwargs={'pk': obj.id}))
 
 class ArticleDeleteView(DeleteView):
-    pass
+    model = Article
+    success_url = reverse_lazy('articles')
+    template_name_suffix = '-delete'
 
 class CategoriesView(ListView):
     model = Category

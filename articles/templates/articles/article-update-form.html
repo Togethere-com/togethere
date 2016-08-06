@@ -1,5 +1,4 @@
 <div class="article-form">
-    <h2 class="h3">Submit a new article</h2>
 
     {% if form.errors %}
         {% for field in form %}
@@ -15,16 +14,11 @@
             </p>
         {% endfor %}
     {% endif %}
-    <form action="/" method="POST">
+    <form action="{% url 'article-update' pk=article.id %}" method="POST">
         {% csrf_token %}
         {% for field in form %}
             <fieldset class="article-form__field">
-            {% if field.name != "name" %}
-                {{ field.label_tag }} {{ field }}
-                {% if field.help_text %}
-                <p class="help">{{ field.help_text|safe }}</p>
-                {% endif %}
-            {% else %}
+            {% if field.name = "categories"%}
                 {{ field.label_tag }}
                 <ul id={{ field.auto_id }}>
                 {% for checkbox in field %}
@@ -33,17 +27,28 @@
                         <label for="{{ checkbox.id_for_label }}">
                             {{ checkbox.choice_label }}
                         </label>
-                        {% if field.help_text %}
-                        <span class="help">{{ field.help_text|safe }}</span>
-                        {% endif %}
                     </li>
                 {% endfor %}
                 </ul>
+            {% elif field.name = "city" %}
+                {{ field.label_tag }}
+                <ul id={{ field.auto_id }}>
+                {% for radio in field %}
+                    <li>
+                        {{ radio.tag }}
+                        <label for="{{ radio.id_for_label }}">
+                            {{ radio.choice_label }}
+                        </label>
+                    </li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                {{ field.label_tag }} {{ field }}
             {% endif %}
             </fieldset>
         {% endfor %}
         <fieldset class="article-form__field">
-            <input class="button" type="submit" value="submit">
+            <input class="button" type="submit" value="save">
         </fieldset>
     </form>
 </div>

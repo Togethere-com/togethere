@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
 
-from articles.views import ArticlesView, ArticleView, CategoriesView, CategoryView, CitiesView, CityView
+from articles.views import ArticlesView, ArticleView, CategoriesView, CategoryView, CitiesView, CityView, ArticleSubmitView, ArticleUpdateView, ArticleDeleteView
 from articles.models import Article, Category, City
 
 class ArticlesPageTest(TestCase):
@@ -41,12 +41,56 @@ class ArticlePageTest(TestCase):
         self.user.save()
         self.client.login(username='testuser', password='12345')
         amsterdam = City.objects.create(name='AMS')
+        rotterdam = City.objects.create(name='ROT')
         first_article = Article.objects.create(title='foo',text='bla bla bla',author=self.user,city=amsterdam)
+        general_information = Category.objects.create(name='GEN')
+        food_and_drinks = Category.objects.create(name='FOO')
+        first_article.categories.add(general_information)
 
     def test_article_page(self):
         response = self.client.get('/1/')
         self.assertTemplateUsed(response, 'articles/article.html')
         self.assertContains(response, 'foo')
+
+    def test_can_submit_article(self):
+        response = self.client.post('/article-submit/', data={
+            'title': 'Test title',
+            'text': 'Test text',
+            'categories': [1],
+            'city': 1,
+            'author': self.user,
+            })
+        self.assertEqual(Article.objects.all().count(), 2)
+        self.assertRedirects(response, '/2')
+
+    def test_can_update_article(self):
+        response = self.client.post('/article-update/1/', data={
+            'title': 'Edited title',
+            'text': 'Edited text',
+            'categories': [1, 2],
+            'city': 2,
+            'author': self.user,
+            })
+        self.assertRedirects(response, '/1')
+        updated_article = Article.objects.get(pk=1)
+        updated_city = City.objects.get(pk=2)
+        self.assertEqual(updated_article.city, updated_city)
+        self.assertEqual(updated_article.categories.count(), 2)
+        self.assertListEqual(list(updated_article.categories.values_list('id', flat=True)), [1, 2])
+
+        new_page = self.client.get('/1/')
+        self.assertContains(new_page, "Edited title")
+
+    def test_can_delete_article(self):
+        response = self.client.post('/article-delete/1/')
+        self.assertEqual(Article.objects.all().count(), 0)
+
+    def test_validation_errors_are_sent_to_submit_view(self):
+        response = self.client.post('/article-submit/', data={'title': '', 'text': '', 'categories': '', 'city':''})
+        self.assertEqual(Article.objects.all().count(), 1)
+        self.assertTemplateUsed(response, 'articles/article-submit.html')
+        expected_error = "You’ll have to add a title."
+        self.assertContains(response, expected_error)
 
 class CategoriesPageTest(TestCase):
 

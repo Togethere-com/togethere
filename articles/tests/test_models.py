@@ -59,6 +59,10 @@ class CategoryAndCityModelTest(TestCase):
 
     def test_can_associate_category_and_city_to_article(self):
         general_information = Category.objects.create(name='GEN')
+        food_and_drinks = Category.objects.create(name='FOO')
         amsterdam = City.objects.create(name='AMS')
         article = Article.objects.create(title='Article Title',text='Article text',author=self.user,city=amsterdam)
-        article.categories.add(general_information)
+        article.categories.add(general_information, food_and_drinks)
+
+        self.assertEqual(article.city, amsterdam)
+        self.assertListEqual(list(article.categories.values_list('id', flat=True)), [1, 2])

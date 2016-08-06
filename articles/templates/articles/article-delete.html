@@ -1,0 +1,11 @@
+{% extends 'articles/base.html' %}
+
+{% block article-update %}
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <p>Are you sure you want to delete "{{ object }}"?</p>
+        <input class="button" type="submit" value="Confirm" />
+    </form>
+
+{% endblock article-update %}

@@ -29,7 +29,7 @@ class Category(models.Model):
         verbose_name_plural = 'Categories'
 
     def __str__(self):
-        return self.name
+        return self.get_name_display()
 
 class City(models.Model):
     AMSTERDAM = 'AMS'
@@ -54,7 +54,7 @@ class City(models.Model):
         verbose_name_plural = 'Cities'
 
     def __str__(self):
-        return self.name
+        return self.get_name_display()
 
 class Article(models.Model):
     author = models.ForeignKey('auth.User')
@@ -65,3 +65,6 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse_lazy('article', kwargs={'pk': self.id})

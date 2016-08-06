@@ -1,56 +1,24 @@
-from collections import OrderedDict
-
 from django import forms
 from django.forms import ModelForm
-from betterforms.multiform import MultiModelForm
 
 from .models import Article, Category, City
 
-TITLE_LENGTH_ERROR = "This title is too long, please make it 140 characters or less."
+TITLE_LENGTH_ERROR = "This title is too long, please make it 200 characters or less."
 TITLE_EMPTY_ERROR = "You’ll have to add a title."
 TEXT_EMPTY_ERROR = "Please enter some text."
 NO_CATEGORY_ERROR = "Please select a category."
 NO_CITY_ERROR = "Please select a city."
 
-class CategoryForm(ModelForm):
-    class Meta:
-        model = Category
-        fields = ['name']
-        labels = {
-            'name': 'Category'
-        }
-        widgets = {
-            'name': forms.CheckboxSelectMultiple()
-        }
-        error_messages = {
-            'name': {
-                'required': NO_CATEGORY_ERROR,
-            }
-        }
-
-class CityForm(ModelForm):
-    class Meta:
-        model = City
-        fields = ['name']
-        labels = {
-            'name': 'City'
-        }
-        widgets = {
-            'name': forms.CheckboxSelectMultiple()
-        }
-        error_messages = {
-            'name': {
-                'required': NO_CITY_ERROR,
-            }
-        }
 
 class ArticleForm(ModelForm):
     class Meta:
         model = Article
-        fields = ['title','text']
-        widgets = {
-            'title': forms.TextInput(attrs={'placeholder': 'Enter a descriptive title'}),
-            'article': forms.Textarea(attrs={'placeholder': 'The article'}),
+        fields = ['title', 'text', 'categories', 'city']
+        widgets = {'title': forms.TextInput(attrs={
+            'placeholder': 'Enter a descriptive title'}),
+            'text': forms.Textarea(attrs={'placeholder': 'The article'}),
+            'categories': forms.CheckboxSelectMultiple(choices=Category.CATEGORY_CHOICES),
+            'city': forms.RadioSelect(choices=City.CITY_CHOICES),
         }
         error_messages = {
             'title': {
@@ -59,18 +27,11 @@ class ArticleForm(ModelForm):
             },
             'text': {
                 'required': TEXT_EMPTY_ERROR,
+            },
+            'categories': {
+                'required': NO_CATEGORY_ERROR,
+            },
+            'city': {
+                'required': NO_CITY_ERROR,
             }
         }
-
-class ArticleSubmitForm(MultiModelForm):
-    form_classes = OrderedDict((
-        ('article', ArticleForm),
-        ('category', CategoryForm),
-        ('city', CityForm),
-    ))
-    class Meta:
-        fieldsets = (
-            ('article', {'fields': ('title', 'text',)}),
-            ('category', {'fields': ('name',)}),
-            ('city', {'fields': ('name',)}),
-        )
