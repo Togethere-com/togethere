@@ -18,7 +18,7 @@
         {% csrf_token %}
         {% for field in form %}
             <fieldset class="article-form__field">
-            {% if field.name = "categories"%}
+            {% if field.name == "categories"%}
                 {{ field.label_tag }}
                 <ul id={{ field.auto_id }}>
                 {% for checkbox in field %}
@@ -30,7 +30,7 @@
                     </li>
                 {% endfor %}
                 </ul>
-            {% elif field.name = "city" %}
+            {% elif field.name == "city" %}
                 {{ field.label_tag }}
                 <ul id={{ field.auto_id }}>
                 {% for radio in field %}
