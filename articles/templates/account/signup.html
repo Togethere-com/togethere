@@ -1,0 +1,25 @@
+{% extends "account/base.html" %}
+
+{% block content %}
+    <h1>Register</h1>
+
+    <p>Already have an account? Then please <a href="{{ login_url }}">sign in</a>.</p>
+
+    <form class="signup allauth-form" id="signup_form" method="post" action="{% url 'account_signup' %}">
+        {% csrf_token %}
+        {% for field in form %}
+        <fieldset>
+            {{ field.errors }}
+            {{ field.label_tag }} {{ field }}
+            {% if field.help_text %}
+            <p class="help">{{ field.help_text|safe }}</p>
+            {% endif %}
+        </fieldset>
+        {% endfor %}
+        {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        {% endif %}
+        <button type="submit">Register &raquo;</button>
+    </form>
+
+{% endblock %}

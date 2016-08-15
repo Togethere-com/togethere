@@ -153,6 +153,9 @@ b, strong {
 i, em {
     font-style: italic;
 }
+.errortext {
+    color: $link-hover-color;
+}
 /* ==========================================================================
    #LAYOUT
 ========================================================================== */
@@ -184,10 +187,6 @@ body {
     margin-bottom: 2rem;
     @extend .container;
 }
-nav {
-    float: right;
-    display: inline-block;
-}
 #logo {
     float: left;
     height: 3rem;
@@ -195,15 +194,82 @@ nav {
     display: inline-block;
     margin-right: 1em;
 }
-
-#auth {
-
-}
 .content {
 
 }
 .site-footer{
     margin-bottom: 3rem;
+}
+
+/* ==========================================================================
+   #NAVIGATION
+========================================================================== */
+.top-nav {
+    float: right;
+    text-align: right;
+}
+.top-nav__links {
+    a {
+        &::after {
+            content: ' | ';
+        }
+        &:last-child {
+            &::after {
+                content: '';
+            }
+        }
+        &:hover {
+            &::after {
+                color: $link-color;
+            }
+        }
+    }
+}
+
+/* ==========================================================================
+   #ALLAUTH
+========================================================================== */
+.allauth-container {
+    p {
+        margin-bottom: 1em;
+    }
+}
+.allauth-form {
+    margin-top: 1em;
+    max-width: 20em;
+    fieldset {
+        margin-bottom: 0.5em;
+    }
+    label {
+        display: inline-block
+    }
+    input {
+        display: inline-block;
+        float: right;
+    }
+}
+
+.allauth-social {
+    ul {
+        max-width: 20em;
+        list-style-type: none;
+        margin-bottom: 0.5em;
+    }
+    li {
+        margin: 0.5em 0;
+        text-align: center;
+        a {
+            @extend .button;
+        }
+    }
+}
+.errorlist {
+    list-style-type: none;
+    @extend .errortext;
+}
+
+.socialaccount_provider.facebook {
+    font-size: 1rem;
 }
 
 /* ==========================================================================
@@ -233,7 +299,7 @@ nav {
 :-ms-input-placeholder {
     color: $light-grey;
 }
-input[type=text],input[type=url],input[type=email],textarea {
+.textinput {
     border: 1px solid $lighter-grey;
     font-size: 0.75rem;
     padding: 0.5rem;
@@ -244,19 +310,39 @@ input[type=text],input[type=url],input[type=email],textarea {
         border: 1px solid $link-hover-color;
     }
 }
+input[type=text],
+input[type=url],
+input[type=email],
+input[type=password],
+textarea {
+    @extend .textinput;
+}
 
-.article-form {
-    &__field {
-        margin-top: 1rem;
+form {
+    fieldset {
+        margin-top: 1em;
         &:first-child {
             margin-top: 0;
         }
     }
-    label[for=article-title], label[for=article-text] {
-        width: 2.75em
-    }
     label {
         display: inline-block;
+    }
+    input[type=checkbox] ~ label, input[type=radio] ~ label {
+        @extend .button--outline;
+    }
+    input[type=checkbox], input[type=radio] {
+        display: none;
+        &:checked ~ label {
+            color: $link-hover-color;
+            border: 1px solid $link-hover-color;
+        }
+    }
+}
+
+.article-form {
+    label[for=id_title], label[for=id_text] {
+        width: 2.75em
     }
     #id_categories, #id_city {
         margin-top: 1em;
@@ -266,15 +352,10 @@ input[type=text],input[type=url],input[type=email],textarea {
             margin-right: 1em;
             margin-bottom: 1em;
         }
-        label {
-            @extend .button--outline;
-        }
-        input[type=checkbox], input[type=radio] {
+    }
+    #id_city li {
+        &:first-child {
             display: none;
-            &:checked ~ label {
-                color: $link-hover-color;
-                border: 1px solid $link-hover-color;
-            }
         }
     }
 }

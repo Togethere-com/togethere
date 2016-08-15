@@ -15,8 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from allauth.account import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r"^accounts/register/$", views.signup, name="account_signup"),
+    url(r'^accounts/', include('allauth.urls')),
     url(r'', include('articles.urls')),
 ]

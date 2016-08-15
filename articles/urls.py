@@ -1,6 +1,5 @@
 from django.conf.urls import url
-# from . import views
-from .views import ArticlesView, ArticleView, CategoriesView, CategoryView, CitiesView, CityView, ArticleSubmitView, ArticleUpdateView, ArticleDeleteView
+from .views import *
 
 urlpatterns = [
     url(r'^$', ArticlesView.as_view(), name='articles'),

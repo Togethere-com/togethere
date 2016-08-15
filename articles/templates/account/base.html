@@ -8,6 +8,9 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
+        {% block extra_head %}
+        {% endblock %}
+
         <script>
           (function(d) {
             var config = {
@@ -43,37 +46,27 @@
             </nav>
         </header>
 
-        <main class="content container">
+        <main class="content container allauth">
 
-            {% block articles %}
-            {% endblock articles %}
+        {% if messages %}
+        <div>
+            <strong>Messages:</strong>
+            <ul>
+            	{% for message in messages %}
+            	<li>{{message}}</li>
+            	{% endfor %}
+            </ul>
+        </div>
+        {% endif %}
 
-            {% block article %}
-            {% endblock article %}
-
-            {% block categories %}
-            {% endblock categories %}
-
-            {% block category %}
-            {% endblock category %}
-
-            {% block cities %}
-            {% endblock cities %}
-
-            {% block city %}
-            {% endblock city %}
-
-            {% block article-submit %}
-            {% endblock article-submit %}
-
-            {% block article-update %}
-            {% endblock article-update %}
-
-            {% block article-delete %}
-            {% endblock article-delete %}
-
-            {% block profile %}
-            {% endblock profile %}
+            {% block body %}
+            <div class="allauth-container">
+                {% block content%}
+                {% endblock content %}
+            </div>
+            {% endblock body %}
+            {% block extra_body %}
+            {% endblock extra_body %}
 
         </div>
 
