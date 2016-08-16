@@ -51,7 +51,7 @@
         {% if messages %}
         <div>
             <strong>Messages:</strong>
-            <ul>
+            <ul id="allauth-messages">
             	{% for message in messages %}
             	<li>{{message}}</li>
             	{% endfor %}

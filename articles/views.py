@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from .models import Article, Category, City
+from .models import Article, Category, City, Profile
 from .forms import ArticleForm
 
 class ArticlesView(ListView):
@@ -96,3 +96,17 @@ class CityView(ListView):
         return Article.objects.filter(city=self.kwargs['pk'])
 
     template_name = 'articles/city.html'
+
+class ProfileView(ListView):
+    model = Article
+    context_object_name = 'articles'
+    paginate_by = 25
+    def get_context_data(self, **kwargs):
+        context = super(ProfileView, self).get_context_data(**kwargs)
+        context['profile'] = get_object_or_404(Profile, pk=self.kwargs['pk'])
+        return context
+
+    def get_queryset(self):
+        return Article.objects.filter(author__id=self.kwargs['pk'])
+
+    template_name = 'articles/profile.html'

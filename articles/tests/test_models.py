@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 
-from articles.models import Article, Category, City
+from articles.models import Article, Category, City, Profile
 
 class ArticleModelTest(TestCase):
 
@@ -33,7 +33,7 @@ class CategoryModelTest(TestCase):
         self.client.login(username='testuser', password='12345')
 
     def test_can_create_category(self):
-        category = Category.objects.create(name='GEN')
+        Category.objects.create(name='GEN')
         self.assertEqual(Category.objects.count(), 1)
 
 
@@ -46,7 +46,7 @@ class CityModelTest(TestCase):
         self.client.login(username='testuser', password='12345')
 
     def test_can_create_city(self):
-        city = City.objects.create(name='AMS')
+        City.objects.create(name='AMS')
         self.assertEqual(City.objects.count(), 1)
 
 class CategoryAndCityModelTest(TestCase):
@@ -66,3 +66,15 @@ class CategoryAndCityModelTest(TestCase):
 
         self.assertEqual(article.city, amsterdam)
         self.assertListEqual(list(article.categories.values_list('id', flat=True)), [1, 2])
+
+class ProfileModelTest(TestCase):
+
+    def setUp(self):
+        self.user = User.objects.create(username='testuser')
+        self.user.set_password('12345')
+        self.user.save()
+        self.client.login(username='testuser', password='12345')
+
+    def test_can_create_profile(self):
+        #profile should already be there when user is created
+        self.assertEqual(Profile.objects.count(), 1)

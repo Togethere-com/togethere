@@ -1,0 +1,9 @@
+{% extends 'articles/base.html' %}
+
+{% block profile %}
+
+<h2>Articles submitted by {{ profile }}</h2>
+
+{% include 'articles/article-list.html' %}
+
+{% endblock profile %}

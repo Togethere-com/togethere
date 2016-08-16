@@ -234,6 +234,9 @@ body {
         margin-bottom: 1em;
     }
 }
+#allauth-messages {
+    list-style-type: none;
+}
 .allauth-form {
     margin-top: 1em;
     max-width: 20em;

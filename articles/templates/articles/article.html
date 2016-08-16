@@ -17,8 +17,12 @@
                 {% endfor %}
         </span>
         <br>
+        <span class="meta__user">
+            Submitted by: <a href="{% url 'profile' pk=article.author.profile.id %}">{{ article.author }}</a>
+        </span>
+        <br>
         <span class="meta__city">
-            City: {{ article.city.get_name_display }}
+            City: <a href="{% url 'city' pk=article.city.id %}">{{ article.city.get_name_display }}</a>
         </span>
         <br>
         <span class="meta__update">
