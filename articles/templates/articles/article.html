@@ -13,7 +13,7 @@
         <span class="meta__category">
             Category/ies:
                 {% for category in article.categories.all %}
-                    {{ category.get_name_display }}
+                    <a href="{% url 'category' pk=category.id %}">{{ category.get_name_display }}</a>
                 {% endfor %}
         </span>
         <br>
