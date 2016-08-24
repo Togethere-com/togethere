@@ -25,9 +25,9 @@ gulp.task('styles', function() {
 });
 
 gulp.task('scripts', function() {
-  return gulp.src('src/scripts/**/*.js')
-    .pipe(jshint('.jshintrc'))
-    .pipe(jshint.reporter('default'))
+  return gulp.src(['src/scripts/!(main)*.js', 'src/scripts/node_modules/pjax/pjax.js', 'src/scripts/main.js'])
+    // .pipe(jshint('.jshintrc'))
+    // .pipe(jshint.reporter('default'))
     .pipe(concat('main.js'))
     .pipe(gulp.dest('build/js'))
     .pipe(rename({suffix: '.min'}))
