@@ -6,7 +6,7 @@
                 {{ article.title }}
             </h2>
             <p>
-                {{ article.text|truncatechars:50 }}
+                {{ article.text|safe|truncatechars:50 }}
             </p>
         </a>
     </li>

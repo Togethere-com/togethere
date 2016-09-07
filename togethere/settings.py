@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
+    'tinymce',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -94,7 +95,6 @@ ACCOUNT_EMAIL_VERIFICATION = "optional"
 
 WSGI_APPLICATION = 'togethere.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
@@ -145,3 +145,19 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 os.environ['DJANGO_LIVE_TEST_SERVER_ADDRESS'] = 'localhost:8123'
+
+# TinyMCE configuration
+TINYMCE_JS_ROOT = "articles/build/lib/node_modules/tinymce"
+TINYMCE_JS_URL = os.path.join(TINYMCE_JS_ROOT, "tinymce.js")
+TINYMCE_DEFAULT_CONFIG = {
+    'theme': "modern",
+    'toolbar': "undo redo | bold italic | bullist numlist | blockquote | removeformat",
+    'menubar': False,
+    'statusbar': False,
+    'schema': "html5",
+    'max_height': 500,
+    'max_width': 500,
+    'min_height': 100,
+    'min_width': 400,
+    'content_css': '/static/articles/build/css/tinymce.css',
+}

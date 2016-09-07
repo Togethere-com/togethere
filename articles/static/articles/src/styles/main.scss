@@ -18,19 +18,18 @@
 ========================================================================== */
 @import 'normalize';
 
-$S:  480px;
-$M:  768px;
-$L:  1024px;
-$XL:  1200px;
-$XXL: 1680px;
+$S:   480px;
+$M:  1024px;
+$L:  1440px;
+$XL: 1920px;
 
 $purple: hsla(231,48%,48%,1);
 $orange: hsla(14,100%,57%,1);
 $blue: hsla(231,99%,59%,1);
 $grey: hsla(200,19%,18%,1);
 
-$light-grey: lighten($grey,33%);
-$lighter-grey: lighten($grey,67%);
+$light-grey: lighten($grey,25%);
+$lighter-grey: lighten($grey,50%);
 
 $link-color: $purple;
 $link-hover-color: $orange;
@@ -372,10 +371,53 @@ form {
 .article-list__item {
     @extend .card;
     margin-bottom: 1rem;
+    a {
+        * {
+            display: inline;
+        }
+        h2 {
+            display: block;
+        }
+    }
 }
 .pagination {
     display: block;
     width: 100%;
     text-align: center;
     margin-bottom: 3rem;
+}
+
+/* ==========================================================================
+   #ARTICLE
+========================================================================== */
+.article {
+
+}
+.article__header {
+
+}
+.article__text {
+    p, ol, ul, blockquote {
+        margin-bottom: 1em;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+    ol, ul {
+        margin-left: 1em;
+    }
+    margin-bottom: 1rem;
+}
+.article__meta {
+    div + div {
+        margin-top: 1rem;
+    }
+}
+.meta__category {
+    a::after {
+        content: ', ';
+    }
+    a:last-child:after {
+        content: '';
+    }
 }

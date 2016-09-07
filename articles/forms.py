@@ -1,5 +1,6 @@
 from django import forms
 from django.forms import ModelForm
+from tinymce.widgets import TinyMCE
 
 from .models import Article, Category, City
 
@@ -11,12 +12,12 @@ NO_CITY_ERROR = "Please select a city."
 
 
 class ArticleForm(ModelForm):
+    text = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 30}), error_messages = { 'required': TEXT_EMPTY_ERROR})
     class Meta:
         model = Article
         fields = ['title', 'text', 'categories', 'city']
         widgets = {'title': forms.TextInput(attrs={
             'placeholder': 'Enter a descriptive title'}),
-            'text': forms.Textarea(attrs={'placeholder': 'The article'}),
             'categories': forms.CheckboxSelectMultiple(choices=Category.CATEGORY_CHOICES),
             'city': forms.RadioSelect(choices=City.CITY_CHOICES),
         }
@@ -24,9 +25,6 @@ class ArticleForm(ModelForm):
             'title': {
                 'max_length': TITLE_LENGTH_ERROR,
                 'required': TITLE_EMPTY_ERROR,
-            },
-            'text': {
-                'required': TEXT_EMPTY_ERROR,
             },
             'categories': {
                 'required': NO_CATEGORY_ERROR,

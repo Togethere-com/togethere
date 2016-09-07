@@ -14,41 +14,44 @@ var gulp = require('gulp'),
 
 
 gulp.task('styles', function() {
-  return gulp.src('src/styles/main.scss')
-    .pipe(sass().on('error', sass.logError))
-    .pipe(autoprefixer('last 2 version'))
-    .pipe(gulp.dest('build/css'))
-    .pipe(rename({suffix: '.min'}))
-    .pipe(cleancss())
-    .pipe(gulp.dest('build/css'))
-    .pipe(notify({ message: 'Styles task complete' }));
+  return gulp.src(['src/styles/main.scss','src/styles/tinymce.scss'])
+  .pipe(sass().on('error', sass.logError))
+  .pipe(autoprefixer('last 2 version'))
+  .pipe(gulp.dest('build/css'))
+  .pipe(rename({suffix: '.min'}))
+  .pipe(cleancss())
+  .pipe(gulp.dest('build/css'))
+  .pipe(notify({ message: 'Styles task complete' }));
 });
 
 gulp.task('scripts', function() {
-  return gulp.src(['src/scripts/!(main)*.js', 'src/scripts/node_modules/pjax/pjax.js', 'src/scripts/main.js'])
-    // .pipe(jshint('.jshintrc'))
-    // .pipe(jshint.reporter('default'))
-    .pipe(concat('main.js'))
-    .pipe(gulp.dest('build/js'))
-    .pipe(rename({suffix: '.min'}))
-    .pipe(uglify())
-    .pipe(gulp.dest('build/js'))
-    .pipe(notify({ message: 'Scripts task complete' }));
+  return gulp.src([
+    'src/scripts/!(main)*.js',
+    'src/scripts/main.js'
+  ])
+  .pipe(jshint('.jshintrc'))
+  .pipe(jshint.reporter('default'))
+  .pipe(concat('main.js'))
+  .pipe(gulp.dest('build/js'))
+  .pipe(rename({suffix: '.min'}))
+  .pipe(uglify())
+  .pipe(gulp.dest('build/js'))
+  .pipe(notify({ message: 'Scripts task complete' }));
 });
 
 gulp.task('images', function() {
   return gulp.src('src/images/**/*')
-    .pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true })))
-    .pipe(gulp.dest('build/img'))
-    .pipe(notify({ message: 'Images task complete' }));
+  .pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true })))
+  .pipe(gulp.dest('build/img'))
+  .pipe(notify({ message: 'Images task complete' }));
 });
 
 gulp.task('clean', function() {
-    return del(['build/css', 'build/js', 'build/img']);
+  return del(['build/css', 'build/js', 'build/img']);
 });
 
 gulp.task('default', ['clean'], function() {
-    gulp.start('styles', 'scripts', 'images');
+  gulp.start('styles', 'scripts', 'images');
 });
 
 gulp.task('watch', function() {

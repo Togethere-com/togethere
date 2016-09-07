@@ -73,6 +73,10 @@
         <footer class="site-footer">
         </footer>
 
+        {% block extra_footer_stuff %}
+        {% endblock extra_footer_stuff %}
+
+        <script src="{% static 'articles/build/lib/node_modules/pjax/pjax.js' %}"></script>
         <script src="{% static 'articles/build/js/main.js' %}"></script>
     </body>
 </html>
