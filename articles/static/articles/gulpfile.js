@@ -29,8 +29,8 @@ gulp.task('scripts', function() {
     'src/scripts/!(main)*.js',
     'src/scripts/main.js'
   ])
-  .pipe(jshint('.jshintrc'))
-  .pipe(jshint.reporter('default'))
+  // .pipe(jshint('.jshintrc'))
+  // .pipe(jshint.reporter('default'))
   .pipe(concat('main.js'))
   .pipe(gulp.dest('build/js'))
   .pipe(rename({suffix: '.min'}))

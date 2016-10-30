@@ -156,6 +156,43 @@ i, em {
     color: $link-hover-color;
 }
 /* ==========================================================================
+   #PJAX
+========================================================================== */
+.pjax {
+    transition: all 0.3s ease-in-out;
+    // opacity: 0;
+    animation-fill-mode: both;
+    animation-duration: 1s;
+}
+.pjax--add {
+    // opacity: 1;
+}
+.pjax--remove {
+
+}
+@keyframes pjax--backward {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+.pjax--forward {
+
+}
+.pjax--forward {
+    animation-name: pjax--forward
+}
+@keyframes pjax--forward {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+/* ==========================================================================
    #LAYOUT
 ========================================================================== */
 body {

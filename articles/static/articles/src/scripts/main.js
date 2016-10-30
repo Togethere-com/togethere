@@ -30,8 +30,25 @@ function DOMContentLoaded() {
 }
 
 new Pjax({
-  elements: "a",
-  selectors: ["title", ".site-header", ".content"]
+    elements: "a",
+    selectors: ["title", ".site-header", ".content"],
+    switches: {
+      "title": Pjax.switches.sideBySide,
+      ".site-header": Pjax.switches.sideBySide,
+      ".content": Pjax.switches.sideBySide
+    },
+    switchesOptions: {
+      classNames: {
+        // class added on the element that will be removed
+        remove: "pjax, pjax--remove",
+        // class added on the element that will be added
+        add: "pjax, pjax-add",
+        // class added on the element when it go backward
+        backward: "pjax--backward",
+        // class added on the element when it go forward (used for new page too)
+        forward: "pjax--forward"
+      }
+    }
 })
 
-document.addEventListener("pjax:success", DOMContentLoaded);
+document.addEventListener("pjax:success", DOMContentLoaded)
