@@ -10,8 +10,12 @@ var gulp = require('gulp'),
     notify = require('gulp-notify'),
     cache = require('gulp-cache'),
     livereload = require('gulp-livereload'),
-    del = require('del');
-
+    del = require('del'),
+    browserify = require('browserify'),
+    source = require('vinyl-source-stream'),
+    buffer = require('vinyl-buffer'),
+    sourcemaps = require('gulp-sourcemaps'),
+    gutil = require('gulp-util');
 
 gulp.task('styles', function() {
   return gulp.src(['src/styles/main.scss','src/styles/tinymce.scss'])
@@ -39,6 +43,24 @@ gulp.task('scripts', function() {
   .pipe(notify({ message: 'Scripts task complete' }));
 });
 
+gulp.task('browserify', function () {
+  // set up the browserify instance on a task basis
+  var b = browserify({
+    entries: ['src/scripts/modernizr.js', 'src/scripts/main.js'],
+    debug: true
+  });
+
+  return b.bundle()
+    .pipe(source('main.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({loadMaps: true}))
+        // Add transformation tasks to the pipeline here.
+        .pipe(uglify())
+        .on('error', gutil.log)
+    .pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest('build/js/'));
+});
+
 gulp.task('images', function() {
   return gulp.src('src/images/**/*')
   .pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true })))
@@ -51,7 +73,7 @@ gulp.task('clean', function() {
 });
 
 gulp.task('default', ['clean'], function() {
-  gulp.start('styles', 'scripts', 'images');
+  gulp.start('styles', 'browserify', 'images');
 });
 
 gulp.task('watch', function() {

@@ -33,9 +33,9 @@ new Pjax({
     elements: "a",
     selectors: ["title", ".site-header", ".content"],
     switches: {
-      "title": Pjax.switches.sideBySide,
-      ".site-header": Pjax.switches.sideBySide,
-      ".content": Pjax.switches.sideBySide
+      "title": require("pjax/lib/switches").sideBySide,
+      ".site-header": require("pjax/lib/switches").sideBySide,
+      ".content": require("pjax/lib/switches").sideBySide
     },
     switchesOptions: {
       classNames: {
