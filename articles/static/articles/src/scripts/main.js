@@ -1,8 +1,11 @@
+var Pjax = require('pjax'),
+    switches = require('pjax/lib/switches');
+
 document.addEventListener("DOMContentLoaded", DOMContentLoaded);
 
 function DOMContentLoaded() {
 
-    var $ = jQuery;
+    var $ = require('jquery');
     var $e = $('.tinymce');
     // .tinymce element is not present on all pages so check for it
     if ($e.length != 0) {
@@ -29,26 +32,35 @@ function DOMContentLoaded() {
 
 }
 
+function customSwitch(oldEl, newEl, pjaxRequestOptions, switchesClasses) {
+  oldEl.classList.add('pjax','pjax--forward');
+  newEl.classList.add('pjax','pjax--backward');
+  setTimeout(function () {
+    oldEl.outerHTML = newEl.outerHTML
+  }, 300);
+  this.onSwitch( console.log("onswitch") );
+}
+
 new Pjax({
     elements: "a",
     selectors: ["title", ".site-header", ".content"],
     switches: {
-      "title": require("pjax/lib/switches").sideBySide,
-      ".site-header": require("pjax/lib/switches").sideBySide,
-      ".content": require("pjax/lib/switches").sideBySide
-    },
-    switchesOptions: {
-      classNames: {
-        // class added on the element that will be removed
-        remove: "pjax, pjax--remove",
-        // class added on the element that will be added
-        add: "pjax, pjax-add",
-        // class added on the element when it go backward
-        backward: "pjax--backward",
-        // class added on the element when it go forward (used for new page too)
-        forward: "pjax--forward"
-      }
+      "title": customSwitch,
+      ".site-header": customSwitch,
+      ".content": customSwitch
     }
 })
 
 document.addEventListener("pjax:success", DOMContentLoaded)
+
+var pfx = ["webkit", "moz", "MS", "o", ""];
+function PrefixedEvent(element, type, callback) {
+	for (var p = 0; p < pfx.length; p++) {
+		if (!pfx[p]) type = type.toLowerCase();
+		element.addEventListener(pfx[p]+type, callback, false);
+	}
+}
+PrefixedEvent(document, "AnimationEnd", AnimationListener);
+function AnimationListener() {
+  console.log("animation end event fired");
+}

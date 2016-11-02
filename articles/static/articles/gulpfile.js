@@ -2,11 +2,11 @@ var gulp = require('gulp'),
     sass = require('gulp-sass'),
     autoprefixer = require('gulp-autoprefixer'),
     cleancss = require('gulp-clean-css'),
-    jshint = require('gulp-jshint'),
+    // jshint = require('gulp-jshint'),
     uglify = require('gulp-uglify'),
     imagemin = require('gulp-imagemin'),
     rename = require('gulp-rename'),
-    concat = require('gulp-concat'),
+    // concat = require('gulp-concat'),
     notify = require('gulp-notify'),
     cache = require('gulp-cache'),
     livereload = require('gulp-livereload'),
@@ -28,23 +28,7 @@ gulp.task('styles', function() {
   .pipe(notify({ message: 'Styles task complete' }));
 });
 
-gulp.task('scripts', function() {
-  return gulp.src([
-    'src/scripts/!(main)*.js',
-    'src/scripts/main.js'
-  ])
-  // .pipe(jshint('.jshintrc'))
-  // .pipe(jshint.reporter('default'))
-  .pipe(concat('main.js'))
-  .pipe(gulp.dest('build/js'))
-  .pipe(rename({suffix: '.min'}))
-  .pipe(uglify())
-  .pipe(gulp.dest('build/js'))
-  .pipe(notify({ message: 'Scripts task complete' }));
-});
-
-gulp.task('browserify', function () {
-  // set up the browserify instance on a task basis
+gulp.task('scripts', function () {
   var b = browserify({
     entries: ['src/scripts/modernizr.js', 'src/scripts/main.js'],
     debug: true
@@ -73,7 +57,7 @@ gulp.task('clean', function() {
 });
 
 gulp.task('default', ['clean'], function() {
-  gulp.start('styles', 'browserify', 'images');
+  gulp.start('styles', 'scripts', 'images');
 });
 
 gulp.task('watch', function() {

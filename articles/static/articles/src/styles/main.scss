@@ -159,18 +159,20 @@ i, em {
    #PJAX
 ========================================================================== */
 .pjax {
-    transition: all 0.3s ease-in-out;
-    // opacity: 0;
+    // transition: opacity 0.3s ease-in-out;
     animation-fill-mode: both;
-    animation-duration: 1s;
+    animation-duration: 0.3s;
 }
 .pjax--add {
     // opacity: 1;
 }
 .pjax--remove {
-
+    // opacity: 0;
 }
-@keyframes pjax--backward {
+.pjax--backward {
+    animation-name: pjax--appear;
+}
+@keyframes pjax--appear {
     0% {
         opacity: 0;
     }
@@ -179,12 +181,9 @@ i, em {
     }
 }
 .pjax--forward {
-
+    animation-name: pjax--disappear
 }
-.pjax--forward {
-    animation-name: pjax--forward
-}
-@keyframes pjax--forward {
+@keyframes pjax--appear {
     0% {
         opacity: 1;
     }
