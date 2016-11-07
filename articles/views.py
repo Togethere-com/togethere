@@ -26,10 +26,6 @@ class ArticleSubmitView(CreateView):
     model = Article
     form_class = ArticleForm
     template_name = 'articles/article-submit.html'
-    # set up login required later
-    # @method_decorator(login_required)
-    # def dispatch(self, *args, **kwargs):
-    #     return super(ArticleSubmitView, self).dispatch(*args, **kwargs)
 
     def form_valid(self, form):
         obj = form.save(commit=False)
@@ -86,9 +82,7 @@ class CityView(ListView):
     context_object_name = 'articles'
     paginate_by = 25
     def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
         context = super(CityView, self).get_context_data(**kwargs)
-        # Add in a QuerySet of the city
         context['city'] = City.objects.get(pk=self.kwargs['pk'])
         return context
 
