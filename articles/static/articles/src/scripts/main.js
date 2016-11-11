@@ -33,27 +33,6 @@ function DOMContentLoaded() {
 
 document.addEventListener("DOMContentLoaded", DOMContentLoaded);
 
-// DOMContentLoaded();
-//
-// function customSwitch(oldEl, newEl, pjaxRequestOptions, switchesClasses) {
-//   oldEl.classList.add('pjax','pjax--forward');
-//   newEl.classList.add('pjax','pjax--backward');
-//   setTimeout(function () {
-//     oldEl.outerHTML = newEl.outerHTML
-//   }, 300);
-//   this.onSwitch( console.log("onswitch") );
-// }
-//
-// new Pjax({
-//   elements: "a",
-//   selectors: [".content"],
-//   switches: {
-//     ".content": customSwitch
-//   }
-// })
-//
-// document.addEventListener("pjax:success", DOMContentLoaded)
-
 var pfx = ["webkit", "moz", "MS", "o", ""];
 function PrefixedEvent(element, type, callback) {
   for (var p = 0; p < pfx.length; p++) {

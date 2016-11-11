@@ -155,42 +155,7 @@ i, em {
 .errortext {
     color: $link-hover-color;
 }
-/* ==========================================================================
-   #PJAX
-========================================================================== */
-.pjax {
-    // transition: opacity 0.3s ease-in-out;
-    animation-fill-mode: both;
-    animation-duration: 0.3s;
-}
-.pjax--add {
-    // opacity: 1;
-}
-.pjax--remove {
-    // opacity: 0;
-}
-.pjax--backward {
-    animation-name: pjax--appear;
-}
-@keyframes pjax--appear {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-.pjax--forward {
-    animation-name: pjax--disappear
-}
-@keyframes pjax--disappear {
-    0% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-    }
-}
+
 /* ==========================================================================
    #LAYOUT
 ========================================================================== */
