@@ -2,16 +2,20 @@ var gulp = require('gulp'),
     sass = require('gulp-sass'),
     autoprefixer = require('gulp-autoprefixer'),
     cleancss = require('gulp-clean-css'),
-    jshint = require('gulp-jshint'),
+    // jshint = require('gulp-jshint'),
     uglify = require('gulp-uglify'),
     imagemin = require('gulp-imagemin'),
     rename = require('gulp-rename'),
-    concat = require('gulp-concat'),
+    // concat = require('gulp-concat'),
     notify = require('gulp-notify'),
     cache = require('gulp-cache'),
     livereload = require('gulp-livereload'),
-    del = require('del');
-
+    del = require('del'),
+    browserify = require('browserify'),
+    source = require('vinyl-source-stream'),
+    buffer = require('vinyl-buffer'),
+    sourcemaps = require('gulp-sourcemaps'),
+    gutil = require('gulp-util');
 
 gulp.task('styles', function() {
   return gulp.src(['src/styles/main.scss','src/styles/tinymce.scss'])
@@ -24,19 +28,21 @@ gulp.task('styles', function() {
   .pipe(notify({ message: 'Styles task complete' }));
 });
 
-gulp.task('scripts', function() {
-  return gulp.src([
-    'src/scripts/!(main)*.js',
-    'src/scripts/main.js'
-  ])
-  // .pipe(jshint('.jshintrc'))
-  // .pipe(jshint.reporter('default'))
-  .pipe(concat('main.js'))
-  .pipe(gulp.dest('build/js'))
-  .pipe(rename({suffix: '.min'}))
-  .pipe(uglify())
-  .pipe(gulp.dest('build/js'))
-  .pipe(notify({ message: 'Scripts task complete' }));
+gulp.task('scripts', function () {
+  var b = browserify({
+    entries: ['src/scripts/modernizr.js', 'src/scripts/main.js'],
+    debug: true
+  });
+
+  return b.bundle()
+    .pipe(source('main.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({loadMaps: true}))
+        // Add transformation tasks to the pipeline here.
+        .pipe(uglify())
+        .on('error', gutil.log)
+    .pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest('build/js/'));
 });
 
 gulp.task('images', function() {
