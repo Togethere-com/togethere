@@ -42,26 +42,7 @@ gulp.task('scripts', function () {
         .pipe(uglify())
         .on('error', gutil.log)
     .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest('build/js/'))
-    .pipe(notify({ message: 'Scripts task complete' }));
-});
-
-gulp.task('tinymce', function () {
-  var b = browserify({
-    entries: ['src/scripts/tinymce.js'],
-    debug: true
-  });
-
-  return b.bundle()
-    .pipe(source('tinymce.js'))
-    .pipe(buffer())
-    .pipe(sourcemaps.init({loadMaps: true}))
-        // Add transformation tasks to the pipeline here.
-        .pipe(uglify())
-        .on('error', gutil.log)
-    .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest('build/js/'))
-    .pipe(notify({ message: 'Tinymce task complete' }));
+    .pipe(gulp.dest('build/js/'));
 });
 
 gulp.task('images', function() {
@@ -76,14 +57,14 @@ gulp.task('clean', function() {
 });
 
 gulp.task('default', ['clean'], function() {
-  gulp.start('styles', 'scripts', 'tinymce', 'images');
+  gulp.start('styles', 'scripts', 'images');
 });
 
 gulp.task('watch', function() {
   // Watch .scss files
   gulp.watch('src/styles/**/*.scss', ['styles']);
   // Watch .js files
-  gulp.watch('src/scripts/**/*.js', ['scripts', 'tinymce']);
+  gulp.watch('src/scripts/**/*.js', ['scripts']);
   // Watch image files
   gulp.watch('src/images/**/*', ['images']);
   // Create LiveReload server

@@ -183,7 +183,7 @@ i, em {
 .pjax--forward {
     animation-name: pjax--disappear
 }
-@keyframes pjax--disappear {
+@keyframes pjax--appear {
     0% {
         opacity: 1;
     }
