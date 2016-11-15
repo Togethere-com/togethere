@@ -1,5 +1,4 @@
-var Pjax = require('pjax'),
-    $ = require('jquery');
+var $ = require('jquery');
 
 function DOMContentLoaded() {
   var $e = $('.tinymce'),
@@ -31,16 +30,17 @@ function DOMContentLoaded() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", DOMContentLoaded);
+document.addEventListener('DOMContentLoaded', DOMContentLoaded);
 
-var pfx = ["webkit", "moz", "MS", "o", ""];
-function PrefixedEvent(element, type, callback) {
-  for (var p = 0; p < pfx.length; p++) {
-    if (!pfx[p]) type = type.toLowerCase();
-    element.addEventListener(pfx[p]+type, callback, false);
-  }
-}
-PrefixedEvent(document, "AnimationEnd", AnimationListener);
-function AnimationListener() {
-  console.log("animation end event fired");
-}
+document.getElementById('filter-form-reset-button').addEventListener('click', function (event) {
+  event.preventDefault();
+  var filterForm = document.getElementById('filter-form'),
+    inputs = filterForm.getElementsByTagName('input');
+  Array.prototype.forEach.call(inputs, function(input) {
+    if (input.type==='checkbox') {
+      input.checked = false;
+    }
+  });
+  // TODO maybe not submit yet?
+  filterForm.submit();
+});

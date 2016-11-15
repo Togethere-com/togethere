@@ -1,10 +1,10 @@
 {% extends 'articles/base.html' %}
 
-{% block article %}
+{% block main %}
 
 <article class="article">
     <header class="article__header">
-        <h2>{{ article.title }}</h2>
+        <h1>{{ article.title }}</h1>
     </header>
     <section class="article__text">
         {{ article.text|safe }}
@@ -26,6 +26,7 @@
                 City: <a href="{% url 'city' pk=article.city.id %}">{{ article.city.get_name_display }}</a>
             </span>
         </div>
+        {% if user.is_authenticated %}
         <div>
             <span class="meta__update">
                 <a class="button" href="{% url 'article-update' pk=article.id %}">update</a>
@@ -35,7 +36,13 @@
                 <a class="button" href="{% url 'article-delete' pk=article.id %}">delete</a>
             </span>
         </div>
+        {% endif %}
     </footer>
 </article>
 
-{% endblock article %}
+{% endblock main %}
+
+{% block sidebar-right %}
+    <h3>Submit an article</h3>
+    <a href="{% url 'article-submit' %}" class="button">start writing</a>
+{% endblock sidebar-right %}

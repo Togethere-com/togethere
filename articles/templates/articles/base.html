@@ -46,41 +46,29 @@
             </nav>
         </header>
 
-        <main class="content container">
+        <div class="container">
 
-            {% block articles %}
-            {% endblock articles %}
+            <main class="content">
+                {% block main %}
+                {% endblock main %}
+            </main>
 
-            {% block article %}
-            {% endblock article %}
+            <aside class="sidebar sidebar--left">
+                {% block sidebar-left %}
+                {% endblock sidebar-left %}
+            </aside>
 
-            {% block categories %}
-            {% endblock categories %}
-
-            {% block category %}
-            {% endblock category %}
-
-            {% block cities %}
-            {% endblock cities %}
-
-            {% block city %}
-            {% endblock city %}
-
-            {% block article-submit %}
-            {% endblock article-submit %}
-
-            {% block article-update %}
-            {% endblock article-update %}
-
-            {% block article-delete %}
-            {% endblock article-delete %}
-
-            {% block profile %}
-            {% endblock profile %}
+            <aside class="sidebar sidebar--right">
+                {% block sidebar-right %}
+                {% endblock sidebar-right %}
+            </aside>
 
         </div>
 
         <footer class="site-footer">
+            <p>
+                © Togethere
+            </p>
         </footer>
 
         {% block extra_footer_stuff %}

@@ -1,13 +1,22 @@
 {% extends 'articles/base.html' %}
 
-{% block articles %}
+{% block main %}
 
-{% include 'articles/article-list.html' %}
+    <h1 class="articles-title">Articles</h1>
+    {% include 'articles/article-list.html' %}
 
-<h2 class="h3">Submit a new article</h2>
-{% include 'articles/article-submit-form.html' %}
+{% endblock main %}
 
-{% endblock articles %}
+{% block sidebar-left %}
+    {% if filter.form %}
+        {% include 'articles/filter-form.html' %}
+    {% endif %}
+{% endblock sidebar-left %}
+
+{% block sidebar-right %}
+    <h3>Submit an article</h3>
+    <a href="{% url 'article-submit' %}" class="button">start writing</a>
+{% endblock sidebar-right %}
 
 {% block extra_footer_stuff %}
 {% endblock extra_footer_stuff %}

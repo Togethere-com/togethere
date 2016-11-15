@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
     'tinymce',
+    'django_filters',
 ]
 
 MIDDLEWARE_CLASSES = [

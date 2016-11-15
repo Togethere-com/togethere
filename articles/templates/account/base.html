@@ -1,84 +1,25 @@
-{% load staticfiles %}
-<!doctype html>
-<html class="no-js" lang="en-US">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Togethere</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+{% extends 'articles/base.html' %}
 
-        {% block extra_head %}
-        {% endblock %}
+{% block main %}
 
-        <script>
-          (function(d) {
-            var config = {
-              kitId: 'snd6kgu',
-              scriptTimeout: 3000,
-              async: true
-            },
-            h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
-          })(document);
-        </script>
+{% if messages %}
+<div>
+    <strong>Messages:</strong>
+    <ul id="allauth-messages">
+        {% for message in messages %}
+        <li>{{message}}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
 
-        <link rel="stylesheet" type="text/css" href="{% static 'articles/build/css/main.css' %}" />
-    </head>
-    <body id="body">
-        <header class="site-header">
-            <a href="/">
-                <img src="{% static 'articles/build/img/togethere-logo.svgz' %}" id="logo" alt="Click this togethere logo to go to the home page" role="img">
-            </a>
-            <nav role="navigation" class="top-nav">
-                <div class="top-nav__links">
-                    <a href="{% url 'categories' %}">Categories</a>
-                    <a href="{% url 'cities' %}">Cities</a>
-                </div>
-                <div id="auth" class="top-nav__links">
-                    {% load account %}
-                    {% if user.is_authenticated %}
-                    You are signed in as: {% user_display user %} -
-                    <a href="/accounts/logout/">log out</a>
-                    {% else %}
-                    <a href="/accounts/login/">log in</a> <a href="/accounts/register/">register</a>
-                    {% endif %}
-                </div>
-            </nav>
-        </header>
+{% block body %}
+<div class="allauth-container">
+    {% block content%}
+    {% endblock content %}
+</div>
+{% endblock body %}
+{% block extra_body %}
+{% endblock extra_body %}
 
-        <main class="content container allauth">
-
-        {% if messages %}
-        <div>
-            <strong>Messages:</strong>
-            <ul id="allauth-messages">
-            	{% for message in messages %}
-            	<li>{{message}}</li>
-            	{% endfor %}
-            </ul>
-        </div>
-        {% endif %}
-
-            {% block body %}
-            <div class="allauth-container">
-                {% block content%}
-                {% endblock content %}
-            </div>
-            {% endblock body %}
-            {% block extra_body %}
-            {% endblock extra_body %}
-
-        </div>
-
-        <footer class="site-footer">
-        </footer>
-
-        {% block extra_footer_stuff %}
-        {% endblock extra_footer_stuff %}
-
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
-        <script>window.jQuery || !function(){var a=document.createElement("script");a.setAttribute("type","text/javascript"),a.setAttribute("/static/articles/build/lib/node_modules/jquery/dist/jquery.min.js",source),document.body.appendChild(a)}();</script>
-        <script type="text/javascript" src="/static/articles/build/lib/node_modules/tinymce/tinymce.js"></script>
-        <script src="{% static 'articles/build/js/main.js' %}"></script>
-    </body>
-</html>
+{% endblock main %}

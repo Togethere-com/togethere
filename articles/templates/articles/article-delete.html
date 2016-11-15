@@ -1,6 +1,6 @@
 {% extends 'articles/base.html' %}
 
-{% block article-update %}
+{% block main %}
 
     <form action="" method="post">
         {% csrf_token %}
@@ -8,4 +8,4 @@
         <input class="button" type="submit" value="Confirm" />
     </form>
 
-{% endblock article-update %}
+{% endblock main %}

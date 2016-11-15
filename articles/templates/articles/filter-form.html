@@ -1,0 +1,36 @@
+<h3>Filter articles</h3>
+<form action="." method="GET" id="filter-form">
+    {% for field in filter.form %}
+        <fieldset class="article-form__field">
+        {% if field.name == "categories__name"%}
+            Category
+            <ul id={{ field.auto_id }}>
+            {% for checkbox in field %}
+                <li>
+                    {{ checkbox.tag }}
+                    <label for="{{ checkbox.id_for_label }}">
+                        {{ checkbox.choice_label }}
+                    </label>
+                </li>
+            {% endfor %}
+            </ul>
+        {% elif field.name == "city__name" %}
+            City
+            <ul id={{ field.auto_id }}>
+            {% for checkbox in field %}
+                <li>
+                    {{ checkbox.tag }}
+                    <label for="{{ checkbox.id_for_label }}">
+                        {{ checkbox.choice_label }}
+                    </label>
+                </li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            {{field.name }} {{ field.label_tag }} {{ field }}
+        {% endif %}
+        </fieldset>
+    {% endfor %}
+    <button class="button" id="filter-form-reset-button">clear filters</button>
+    <input type="submit" value="filter" class="button">
+</form>

@@ -2,6 +2,8 @@ coverage==4.2
 defusedxml==0.4.1
 Django==1.10
 django-allauth==0.26.1
+django-filter==0.14.0
+django-filters-mixin==0.1.4
 django-tinymce==2.3.0
 oauthlib==1.1.2
 python3-openid==3.0.10

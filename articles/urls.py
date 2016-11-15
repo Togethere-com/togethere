@@ -1,9 +1,10 @@
 from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
 from .views import *
+from .models import Article
 
 urlpatterns = [
-    url(r'^$', ArticlesView.as_view(), name='articles'),
+    url(r'^$', ArticlesView.as_view(model=Article), name='articles'),
     url(r'^(?P<pk>\d+)/?$', ArticleView.as_view(), name='article'),
     url(r'^categories/$', CategoriesView.as_view(), name='categories'),
     url(r'^category/(?P<pk>\d+)/$', CategoryView.as_view(), name='category'),

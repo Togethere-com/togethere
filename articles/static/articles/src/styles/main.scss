@@ -164,28 +164,12 @@ body {
     min-height: 100vh;
     flex-direction: column;
 }
-.container {
-    width: 100%;
-    @include until($M) {
-        padding: 0 1em;
-    }
-    @include at-least($M) {
-        width: 95%;
-    }
-    @include at-least($L) {
-        width: 80%;
-    }
-    @include at-least($XL) {
-        width: 70%;
-    }
-    max-width: 65rem;
-    margin-left: auto;
-    margin-right: auto;
-}
 .site-header {
-    padding: 1em 0;
+    padding: 1rem 2rem 0 2rem;
     margin-bottom: 2rem;
-    @extend .container;
+    @include at-least($M) {
+        padding: 1rem 25%;
+    }
 }
 #logo {
     float: left;
@@ -194,11 +178,42 @@ body {
     display: inline-block;
     margin-right: 1em;
 }
-.content {
-
-}
 .site-footer{
-    margin-bottom: 3rem;
+    padding: 2rem;
+    @include at-least($M) {
+        padding: 0 25% 3rem 25%;
+    }
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    @include at-least($M) {
+        flex-direction: row;
+        flex: 1;
+    }
+}
+.content {
+    display: flex;
+    flex-direction: column;
+    padding: 0 2rem 2rem 2rem;
+    @include at-least($M) {
+        flex: 2 1 auto;
+        padding: 0;
+    }
+}
+.sidebar {
+    padding: 2rem 2rem 0 2rem;
+    @include at-least($M) {
+        flex: 0 0 25%;
+        padding: 0 3rem;
+    }
+    &--left {
+        @include at-least($M) {
+            order: -1;
+        }
+    }
+    &--right {
+    }
 }
 
 /* ==========================================================================
@@ -330,6 +345,7 @@ form {
     }
     label {
         display: inline-block;
+        cursor: pointer;
     }
     input[type=checkbox] ~ label, input[type=radio] ~ label {
         @extend .button--outline;
@@ -343,11 +359,11 @@ form {
     }
 }
 
-.article-form {
+.article-form, #filter-form {
     label[for=id_title], label[for=id_text] {
         width: 2.75em
     }
-    #id_categories, #id_city {
+    #id_categories, #id_city, #id_categories__name, #id_city__name {
         margin-top: 1em;
         list-style-type: none;
         li {
@@ -362,14 +378,16 @@ form {
         }
     }
 }
-
 /* ==========================================================================
    #ARTICLES
 ========================================================================== */
 .article-list {
     list-style-type: none;
+    display: flex;
+    flex-direction: column;
 }
 .article-list__item {
+    flex: 1;
     @extend .card;
     margin-bottom: 1rem;
     a {

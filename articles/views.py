@@ -3,15 +3,38 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.forms import CheckboxSelectMultiple, RadioSelect
 
 from .models import Article, Category, City, Profile
 from .forms import ArticleForm
 
-class ArticlesView(ListView):
+import django_filters
+from filters.views import FilterMixin
+
+class ArticleFilter(django_filters.FilterSet):
+    categories__name = django_filters.ModelMultipleChoiceFilter(
+        name = 'categories',
+        queryset = Category.objects.all(),
+        widget = CheckboxSelectMultiple(choices=Category.CATEGORY_CHOICES),
+    )
+    city__name = django_filters.ModelMultipleChoiceFilter(
+        name = 'city',
+        queryset = City.objects.all(),
+        widget = CheckboxSelectMultiple(choices=City.CITY_CHOICES),
+    )
+
+    class Meta:
+        model = Article
+        # @todo
+        # why do I need to exclude everything here?
+        exclude = ['password','title','text','author','categories','city']
+
+class ArticlesView(FilterMixin, django_filters.views.FilterView):
     model = Article
     context_object_name = 'articles'
     paginate_by = 25
     template_name = 'articles/articles.html'
+    filterset_class = ArticleFilter
 
     def get_context_data(self, **kwargs):
         context = super(ArticlesView, self).get_context_data(**kwargs)

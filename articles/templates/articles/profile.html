@@ -1,9 +1,9 @@
 {% extends 'articles/base.html' %}
 
-{% block profile %}
+{% block main %}
 
-<h2>Articles submitted by {{ profile }}</h2>
+<h1>Articles submitted by {{ profile }}</h1>
 
 {% include 'articles/article-list.html' %}
 
-{% endblock profile %}
+{% endblock main %}

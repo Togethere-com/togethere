@@ -1,9 +1,14 @@
 {% extends 'articles/base.html' %}
 
-{% block category %}
+{% block main %}
 
-<h2>Articles in the category {{category.get_name_display}}</h2>
+<h1>Articles in the category {{category.get_name_display}}</h1>
 
 {% include 'articles/article-list.html' %}
 
-{% endblock category %}
+{% endblock main %}
+
+{% block sidebar-right %}
+    <h3>Submit an article</h3>
+    <a href="{% url 'article-submit' %}" class="button">start writing</a>
+{% endblock sidebar-right %}
