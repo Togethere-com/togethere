@@ -1,0 +1,27 @@
+/* ==========================================================================
+   #ARTICLES
+========================================================================== */
+.article-list {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+}
+.article-list__item {
+    flex: 1;
+    @extend .card;
+    margin-bottom: 1rem;
+    a {
+        * {
+            display: inline;
+        }
+        h2 {
+            display: block;
+        }
+    }
+}
+.pagination {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 3rem;
+}

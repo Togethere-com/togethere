@@ -1,0 +1,34 @@
+/* ==========================================================================
+   #ARTICLE
+========================================================================== */
+.article {
+
+}
+.article__header {
+
+}
+.article__text {
+    p, ol, ul, blockquote {
+        margin-bottom: 1em;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+    ol, ul {
+        margin-left: 1em;
+    }
+    margin-bottom: 1rem;
+}
+.article__meta {
+    div + div {
+        margin-top: 1rem;
+    }
+}
+.meta__category {
+    a::after {
+        content: ', ';
+    }
+    a:last-child:after {
+        content: '';
+    }
+}

@@ -1,0 +1,66 @@
+/* ==========================================================================
+   #LAYOUT
+========================================================================== */
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+.site-header {
+    padding: 1rem 2rem 0 2rem;
+    margin-bottom: 2rem;
+    @include at-least($M) {
+        padding: 1rem 25%;
+    }
+}
+#logo {
+    float: left;
+    height: 3rem;
+    width: auto;
+    display: inline-block;
+    margin-right: 1em;
+}
+.site-footer{
+    padding: 2rem;
+    @include at-least($M) {
+        padding: 0 25% 3rem 25%;
+    }
+}
+.container {
+    margin-top: 7rem;
+    @include at-least($M) {
+        flex-direction: row;
+        flex: 1;
+    }
+}
+.content {
+    display: flex;
+    flex-direction: column;
+    padding: 0 2rem 2rem 2rem;
+    @include at-least($M) {
+        margin: 0 auto;
+        width: 50%;
+        padding: 0;
+    }
+}
+.sidebar {
+    padding: 2rem 2rem 0 2rem;
+    @include at-least($M) {
+        width: 25%;
+        padding: 0 3rem;
+    }
+    &--left {
+        float: left;
+        position: fixed;
+        top: 7rem;
+        left: 0;
+        @include at-least($M) {
+        }
+    }
+    &--right {
+        float: right;
+        position: fixed;
+        top: 7rem;
+        right: 0;
+    }
+}

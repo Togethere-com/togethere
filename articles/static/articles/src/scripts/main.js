@@ -1,4 +1,5 @@
-var $ = require('jquery');
+var $ = require('jquery'),
+    Headroom = require('headroom.js');
 
 function DOMContentLoaded() {
   var $e = $('.tinymce'),
@@ -44,3 +45,26 @@ document.getElementById('filter-form-reset-button').addEventListener('click', fu
   // TODO maybe not submit yet?
   filterForm.submit();
 });
+
+var siteHeader = document.querySelector(".site-header");
+var siteHeaderHeadroom  = new Headroom(siteHeader, {
+  "offset": 80,
+  "tolerance": 8,
+  classes : {
+    // when element is initialized
+    initial : "site-header",
+    // when scrolling up
+    pinned : "site-header--pinned",
+    // when scrolling down
+    unpinned : "site-header--unpinned",
+    // when above offset
+    top : "site-header--top",
+    // when below offset
+    notTop : "site-header--not-top",
+    // when at bottom of scroll area
+    bottom : "site-header--bottom",
+    // when not at bottom of scroll area
+    notBottom : "site-header--not-bottom"
+  }
+});
+siteHeaderHeadroom.init();

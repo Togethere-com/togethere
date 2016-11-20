@@ -1,0 +1,48 @@
+/* ==========================================================================
+   #ALLAUTH
+========================================================================== */
+.allauth-container {
+    p {
+        margin-bottom: 1em;
+    }
+}
+#allauth-messages {
+    list-style-type: none;
+}
+.allauth-form {
+    margin-top: 1em;
+    max-width: 20em;
+    fieldset {
+        margin-bottom: 0.5em;
+    }
+    label {
+        display: inline-block
+    }
+    input {
+        display: inline-block;
+        float: right;
+    }
+}
+
+.allauth-social {
+    ul {
+        max-width: 20em;
+        list-style-type: none;
+        margin-bottom: 0.5em;
+    }
+    li {
+        margin: 0.5em 0;
+        text-align: center;
+        a {
+            @extend .button;
+        }
+    }
+}
+.errorlist {
+    list-style-type: none;
+    @extend .errortext;
+}
+
+.socialaccount_provider.facebook {
+    font-size: 1rem;
+}

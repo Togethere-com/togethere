@@ -18,7 +18,7 @@ var gulp = require('gulp'),
     gutil = require('gulp-util');
 
 gulp.task('styles', function() {
-  return gulp.src(['src/styles/main.scss','src/styles/tinymce.scss'])
+  return gulp.src(['src/styles/main.scss'])
   .pipe(sass().on('error', sass.logError))
   .pipe(autoprefixer('last 2 version'))
   .pipe(gulp.dest('build/css'))

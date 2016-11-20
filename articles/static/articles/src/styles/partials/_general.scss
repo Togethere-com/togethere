@@ -1,0 +1,50 @@
+/* ==========================================================================
+   #GENERAL
+========================================================================== */
+html {
+    font-style: sans-serif;
+    text-rendering: optimizeLegibility;
+}
+body {
+    color: #333;
+    overflow-x: hidden;
+}
+a, a:visited {
+    color: $link-color;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+a:hover {
+    color: $link-hover-color;
+}
+button, a {
+    transition: all 0.3s ease-in-out;
+    &:focus, &:active {
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        -webkit-tap-highlight-color: transparent;
+        outline: none;
+  }
+}
+button, .button, a.button {
+    font-size: 0.75rem;
+    padding: 0.5em;
+    color: #fff;
+    background-color: $link-color;
+    transition: background-color 0.3s ease-in-out;
+    border-radius: $base-border-radius;
+    &:hover, &:focus, &:active {
+        background-color: $link-hover-color;
+    }
+    &--outline {
+        font-size: 0.75rem;
+        padding: 0.5em;
+        background-color: #fff;
+        transition: background-color 0.3s ease-in-out;
+        border: 1px solid $link-color;
+        color: $link-color;
+        &:hover, &:focus, &:active, &:visited {
+            border: 1px solid $link-hover-color;
+            color: $link-hover-color;
+        }
+    }
+}

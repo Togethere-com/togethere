@@ -1,0 +1,24 @@
+/* ==========================================================================
+   #NAVIGATION
+========================================================================== */
+.top-nav {
+    float: right;
+    text-align: right;
+}
+.top-nav__links {
+    a {
+        &::after {
+            content: ' | ';
+        }
+        &:last-child {
+            &::after {
+                content: '';
+            }
+        }
+        &:hover {
+            &::after {
+                color: $link-color;
+            }
+        }
+    }
+}

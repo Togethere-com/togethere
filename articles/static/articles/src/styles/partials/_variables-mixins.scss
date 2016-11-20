@@ -1,0 +1,49 @@
+$S:   480px;
+$M:  1024px;
+$L:  1440px;
+$XL: 1920px;
+
+$purple: hsla(231,48%,48%,1);
+$orange: hsla(14,100%,57%,1);
+$blue: hsla(231,99%,59%,1);
+$grey: hsla(200,19%,18%,1);
+
+$light-purple: lighten($blue, 25%);
+$lighter-purple: lighten($blue, 50%);
+
+$light-grey: lighten($grey,25%);
+$lighter-grey: lighten($grey,50%);
+
+$link-color: $purple;
+$link-hover-color: $orange;
+
+$base-border-radius: 0.125em;
+
+@mixin at-least($device-width) {
+    @media screen and (min-width: $device-width) {
+        @content
+    }
+}
+
+@mixin until($device-width) {
+    @media screen and (max-width: $device-width - 1) {
+        @content
+    }
+}
+
+%float {
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.18),0 2px 10px 0 rgba(0,0,0,0.15);
+    -moz-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.18),0 2px 10px 0 rgba(0,0,0,0.15);
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.18),0 2px 10px 0 rgba(0,0,0,0.15);
+}
+
+%float-high {
+    -webkit-box-shadow: 0 5px 11px 0 rgba(0,0,0,0.23),0 4px 15px 0 rgba(0,0,0,0.20);
+    -moz-box-shadow: 0 5px 11px 0 rgba(0,0,0,0.23),0 4px 15px 0 rgba(0,0,0,0.20);
+    box-shadow: 0 5px 11px 0 rgba(0,0,0,0.23),0 4px 15px 0 rgba(0,0,0,0.20);
+}
+%text-float {
+  -webkit-text-shadow: -2px 2px 4px rgba(0, 0, 0, 0.3);
+     -moz-text-shadow: -2px 2px 4px rgba(0, 0, 0, 0.3);
+          text-shadow: -2px 2px 4px rgba(0, 0, 0, 0.3);
+}

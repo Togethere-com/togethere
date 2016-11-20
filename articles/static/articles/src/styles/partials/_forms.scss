@@ -1,0 +1,76 @@
+/* ==========================================================================
+   #FORMS
+========================================================================== */
+::-webkit-input-placeholder {
+    color: $light-grey;
+}
+:-moz-placeholder { /* Firefox 18- */
+    color: $light-grey;
+}
+::-moz-placeholder {  /* Firefox 19+ */
+    color: $light-grey;
+}
+:-ms-input-placeholder {
+    color: $light-grey;
+}
+.textinput {
+    border: 1px solid $lighter-grey;
+    font-size: 0.75rem;
+    padding: 0.5rem;
+    border-radius: $base-border-radius;
+    transition: all 0.3s ease-in-out;
+    outline: 0;
+    &:focus {
+        border: 1px solid $link-hover-color;
+    }
+}
+input[type=text],
+input[type=url],
+input[type=email],
+input[type=password],
+textarea {
+    @extend .textinput;
+}
+
+form {
+    fieldset {
+        margin-top: 1em;
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+    label {
+        display: inline-block;
+        cursor: pointer;
+    }
+    input[type=checkbox] ~ label, input[type=radio] ~ label {
+        @extend .button--outline;
+    }
+    input[type=checkbox], input[type=radio] {
+        display: none;
+        &:checked ~ label {
+            color: $link-hover-color;
+            border: 1px solid $link-hover-color;
+        }
+    }
+}
+
+.article-form, #filter-form {
+    label[for=id_title], label[for=id_text] {
+        width: 2.75em
+    }
+    #id_categories, #id_city, #id_categories__name, #id_city__name {
+        margin-top: 1em;
+        list-style-type: none;
+        li {
+            display: inline-block;
+            margin-right: 1em;
+            margin-bottom: 1em;
+        }
+    }
+    #id_city li {
+        &:first-child {
+            display: none;
+        }
+    }
+}
