@@ -87,3 +87,7 @@ build/
 tests/report/
 db.sqlite3
 build.zip
+
+# search index
+togethere/whoosh_index/
+togethere/whoosh_index/*

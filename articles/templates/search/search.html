@@ -1,0 +1,51 @@
+{% extends 'articles/base.html' %}
+
+{% load highlight %}
+
+{% block body-class%}search{% endblock body-class %}
+
+{% block main %}
+
+<h2>Search</h2>
+
+<form method="get" action="." class="search-form">
+
+    {% for field in form %}
+        {% if field.name == "models" %}
+        <fieldset class="search-form__field form__field--right">
+            {{ field.label_tag }} {{ field }}
+        </fieldset>
+        {% endif %}
+    {% endfor %}
+        <fieldset class="search-form__field">
+            <input id="id_q" name="q" type="search" value="test">
+            <input class="button" type="submit" value="search" id="search-form__submit">
+        </fieldset>
+
+
+    {% if query %}
+    <div class="search-results">
+        <h3>Results</h3>
+
+        <ul class="search-results-list">
+        {% for result in page.object_list %}
+            <li class="search-results-list__item">
+                <a href="{{ result.object.get_absolute_url }}">{{ result.object.title }}</a>
+            </li>
+        {% empty %}
+        <li>No results found.</li>
+        {% endfor %}
+        </ul>
+
+            {% if page.has_previous or page.has_next %}
+            <div class="pagination">
+                {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
+                |
+                {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
+            </div>
+            {% endif %}
+    </div>
+    {% endif %}
+</form>
+
+{% endblock main %}

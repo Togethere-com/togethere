@@ -24,16 +24,12 @@
 
         <link rel="stylesheet" type="text/css" href="{% static 'articles/build/css/main.css' %}" />
     </head>
-    <body id="body">
+    <body id="body" class="{% block body-class %}{% endblock body-class %}">
         <header class="site-header">
             <a href="/">
                 <img src="{% static 'articles/build/img/togethere-logo.svgz' %}" id="logo" alt="Click this togethere logo to go to the home page" role="img">
             </a>
             <nav role="navigation" class="top-nav">
-                <div class="top-nav__links">
-                    <a href="{% url 'categories' %}">Categories</a>
-                    <a href="{% url 'cities' %}">Cities</a>
-                </div>
                 <div id="auth" class="top-nav__links">
                     {% load account %}
                     {% if user.is_authenticated %}
@@ -43,6 +39,12 @@
                     <a href="/accounts/login/">log in</a> <a href="/accounts/register/">register</a>
                     {% endif %}
                 </div>
+                <form method="get" action="/search/" class="top-nav__search">
+                    <input type="search" name="q" id="id_q" placeholder="search">
+                    <label for="id_q" class="top-nav__search__label">
+                        <img src="{% static 'articles/build/img/search-icon.svgz' %}" id="search-icon" alt="Click this search icon to reveal the search input box" role="img">
+                    </label>
+                </form>
             </nav>
         </header>
 

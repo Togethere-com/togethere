@@ -22,3 +22,57 @@
         }
     }
 }
+.top-nav {
+    float: right;
+    text-align: right;
+}
+.top-nav__links {
+    display: inline-block;
+    a {
+        &::after {
+            content: ' | ';
+        }
+        &:last-child {
+            &::after {
+                content: '';
+            }
+        }
+        &:hover {
+            &::after {
+                color: $link-color;
+            }
+        }
+    }
+}
+.top-nav__search {
+    position: relative;
+    display: inline-block;
+    margin-left: 1rem;
+    #id_q {
+        width: 1.5rem;
+        transition: 0.25s all ease-in-out;
+        height: 1.5rem;
+        border: none;
+        //padding: 0;
+        opacity: 0;
+        padding-left: 0;
+        &:focus {
+            width: 9rem;
+            outline: none;
+            opacity: 1;
+            padding-right: 1.5rem;
+            padding-left: 0.5rem;
+        }
+    }
+    .top-nav__search__label {
+        position: absolute;
+        bottom: 50%;
+        margin-bottom: -1rem;
+        right: 1px;
+    }
+    #search-icon {
+        height: 1.5rem;
+        width: 1.5rem;
+    }
+
+}

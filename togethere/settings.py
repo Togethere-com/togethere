@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.facebook',
     'tinymce',
     'django_filters',
+    'haystack',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -161,4 +162,12 @@ TINYMCE_DEFAULT_CONFIG = {
     'min_height': 100,
     'min_width': 400,
     'content_css': '/static/articles/build/css/tinymce.css',
+}
+
+# Haystack configuration
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
+    },
 }

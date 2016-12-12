@@ -28,6 +28,7 @@ input[type=text],
 input[type=url],
 input[type=email],
 input[type=password],
+input[type=search],
 textarea {
     @extend .textinput;
 }
@@ -54,6 +55,13 @@ form {
         }
     }
 }
+.form__field {
+
+}
+.form__field--right {
+    float: right;
+    text-align: right;
+}
 
 .article-form, #filter-form {
     label[for=id_title], label[for=id_text] {
@@ -71,6 +79,18 @@ form {
     #id_city li {
         &:first-child {
             display: none;
+        }
+    }
+}
+
+.search-form {
+    #id_q, #search-form__submit {
+        font-size: 1rem;
+    }
+    #id_models {
+        list-style-type: none;
+        label {
+            @extend .button--outline;
         }
     }
 }

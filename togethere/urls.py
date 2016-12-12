@@ -22,5 +22,6 @@ urlpatterns = [
     url(r"^accounts/register/$", views.signup, name="account_signup"),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^tinymce/', include('tinymce.urls')),
+    url(r'^search/', include('haystack.urls')),
     url(r'', include('articles.urls')),
 ]

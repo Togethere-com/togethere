@@ -1,0 +1,21 @@
+/* ==========================================================================
+   #SEARCH PAGE
+========================================================================== */
+.search-results {
+    margin-top: 3rem;
+}
+.search-results-list {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+}
+.search-results-list__item {
+    flex: 1;
+    @extend .card;
+    margin-bottom: 1rem;
+    a {
+        * {
+            display: inline;
+        }
+    }
+}
