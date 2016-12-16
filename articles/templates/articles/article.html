@@ -14,7 +14,7 @@
             <span class="meta__category">
                 Category/ies:
                     {% for category in article.categories.all %}
-                        <a href="{% url 'category' pk=category.id %}">{{ category.get_name_display }}</a>
+                        <a href="{% url 'articles' %}?categories__name={{category.id}}">{{ category.get_name_display }}</a>
                     {% endfor %}
             </span>
             <br>
@@ -23,7 +23,7 @@
             </span>
             <br>
             <span class="meta__city">
-                City: <a href="{% url 'city' pk=article.city.id %}">{{ article.city.get_name_display }}</a>
+                City: <a href="{% url 'articles' %}?city__name={{article.city.id}}">{{ article.city.get_name_display }}</a>
             </span>
         </div>
         {% if user.is_authenticated %}

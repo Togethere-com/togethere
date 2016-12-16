@@ -79,41 +79,6 @@ class CategoriesView(ListView):
     context_object_name = 'categories'
     template_name = 'articles/categories.html'
 
-class CategoryView(ListView):
-    model = Article
-    context_object_name = 'articles'
-    paginate_by = 25
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
-        context = super(CategoryView, self).get_context_data(**kwargs)
-        # Add in a QuerySet of the category
-        context['category'] = Category.objects.get(pk=self.kwargs['pk'])
-        return context
-
-    def get_queryset(self):
-        return Article.objects.filter(categories=self.kwargs['pk'])
-
-    template_name = 'articles/category.html'
-
-class CitiesView(ListView):
-    model = City
-    context_object_name = 'cities'
-    template_name = 'articles/cities.html'
-
-class CityView(ListView):
-    model = Article
-    context_object_name = 'articles'
-    paginate_by = 25
-    def get_context_data(self, **kwargs):
-        context = super(CityView, self).get_context_data(**kwargs)
-        context['city'] = City.objects.get(pk=self.kwargs['pk'])
-        return context
-
-    def get_queryset(self):
-        return Article.objects.filter(city=self.kwargs['pk'])
-
-    template_name = 'articles/city.html'
-
 class ProfileView(ListView):
     model = Article
     context_object_name = 'articles'

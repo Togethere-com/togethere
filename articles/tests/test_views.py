@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
 
-from articles.views import ArticlesView, ArticleView, CategoriesView, CategoryView, CitiesView, CityView, ArticleSubmitView, ArticleUpdateView, ArticleDeleteView
+from articles.views import ArticlesView, ArticleView, ArticleSubmitView, ArticleUpdateView, ArticleDeleteView
 from articles.models import Article, Category, City
 
 class ArticlesPageTest(TestCase):
@@ -32,6 +32,7 @@ class ArticlesPageTest(TestCase):
         self.assertContains(first_page, "page 1 of")
         second_page = self.client.get('/?page=2')
         self.assertContains(second_page, "page 2 of")
+
 
 class ArticlePageTest(TestCase):
 
@@ -92,69 +93,6 @@ class ArticlePageTest(TestCase):
         expected_error = "You’ll have to add a title."
         self.assertContains(response, expected_error)
 
-class CategoriesPageTest(TestCase):
-
-    def setUp(self):
-        self.user = User.objects.create(username='testuser')
-        self.user.set_password('12345')
-        self.user.save()
-        self.client.login(username='testuser', password='12345')
-        amsterdam = City.objects.create(name='AMS')
-        article = Article.objects.create(title='foo',text='bla bla bla',author=self.user,city=amsterdam)
-        general_information = Category.objects.create(name='GEN')
-        article.categories.add(general_information)
-
-    def test_categories_page(self):
-        response = self.client.get('/categories/')
-        self.assertTemplateUsed(response, 'articles/categories.html')
-        self.assertContains(response, 'General information')
-
-class CategoryPageTest(TestCase):
-
-    def setUp(self):
-        self.user = User.objects.create(username='testuser')
-        self.user.set_password('12345')
-        self.user.save()
-        self.client.login(username='testuser', password='12345')
-        amsterdam = City.objects.create(name='AMS')
-        article = Article.objects.create(title='foo',text='bla bla bla',author=self.user,city=amsterdam)
-        general_information = Category.objects.create(name='GEN')
-        article.categories.add(general_information)
-
-    def test_category_page(self):
-        response = self.client.get('/category/1/')
-        self.assertTemplateUsed(response, 'articles/category.html')
-        self.assertContains(response, 'General information')
-
-class CitiesPageTest(TestCase):
-
-    def setUp(self):
-        self.user = User.objects.create(username='testuser')
-        self.user.set_password('12345')
-        self.user.save()
-        self.client.login(username='testuser', password='12345')
-        amsterdam = City.objects.create(name='AMS')
-        article = Article.objects.create(title='foo',text='bla bla bla',author=self.user,city=amsterdam)
-
-    def test_cities_page(self):
-        response = self.client.get('/cities/')
-        self.assertTemplateUsed(response, 'articles/cities.html')
-        self.assertContains(response, 'Amsterdam')
-
-class CityPageTest(TestCase):
-
-    def setUp(self):
-        self.user = User.objects.create(username='testuser')
-        self.user.set_password('12345')
-        self.user.save()
-        self.client.login(username='testuser', password='12345')
-        amsterdam = City.objects.create(name='AMS')
-        article = Article.objects.create(title='foo',text='bla bla bla',author=self.user,city=amsterdam)
-
-    def test_city_page(self):
-        response = self.client.get('/city/1/')
-        self.assertTemplateUsed(response, 'articles/city.html')
-        self.assertContains(response, 'Amsterdam')
 
 class ProfilePageTest(TestCase):
 
