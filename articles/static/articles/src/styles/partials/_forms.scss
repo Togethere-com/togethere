@@ -82,6 +82,7 @@ form {
 }
 
 .article-form {
+    margin-bottom: 3rem;
     label[for=id_title], label[for=id_text] {
         display: none;
     }
@@ -119,6 +120,9 @@ form {
     #id_text {
         display: none;
     }
+}
+.mce-arrow-center {
+    display: none!important;
 }
 
 .search-form {
