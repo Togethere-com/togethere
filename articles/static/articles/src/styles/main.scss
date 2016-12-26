@@ -6,6 +6,7 @@
 @import 'normalize';
 
 @import 'partials/variables-mixins';
+@import 'partials/colors';
 @import 'partials/general';
 @import 'partials/cards';
 @import 'partials/forms';
@@ -18,4 +19,3 @@
 @import 'components/search-page';
 
 @import 'vendor/allauth';
-@import 'vendor/tinymce';

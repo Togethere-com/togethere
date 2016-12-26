@@ -15,10 +15,11 @@ var gulp = require('gulp'),
     source = require('vinyl-source-stream'),
     buffer = require('vinyl-buffer'),
     sourcemaps = require('gulp-sourcemaps'),
-    gutil = require('gulp-util');
+    gutil = require('gulp-util'),
+    babelify = require('babelify');
 
 gulp.task('styles', function() {
-  return gulp.src(['src/styles/main.scss'])
+  return gulp.src(['src/styles/main.scss','src/styles/vendor/tinymce.scss'])
   .pipe(sass().on('error', sass.logError))
   .pipe(autoprefixer('last 2 version'))
   .pipe(gulp.dest('build/css'))
@@ -28,22 +29,22 @@ gulp.task('styles', function() {
   .pipe(notify({ message: 'Styles task complete' }));
 });
 
-gulp.task('scripts', function () {
-  var b = browserify({
-    entries: ['src/scripts/modernizr.js', 'src/scripts/main.js'],
-    debug: true
-  });
+    gulp.task('scripts', function () {
+      var b = browserify({
+        entries: ['src/scripts/modernizr.js', 'src/scripts/main.js'],
+        debug: true
+      }).transform(babelify, { presets: ["latest"] });
 
-  return b.bundle()
-    .pipe(source('main.js'))
-    .pipe(buffer())
-    .pipe(sourcemaps.init({loadMaps: true}))
-        // Add transformation tasks to the pipeline here.
-        .pipe(uglify())
-        .on('error', gutil.log)
-    .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest('build/js/'));
-});
+      return b.bundle()
+        .pipe(source('main.js'))
+        .pipe(buffer())
+        .pipe(sourcemaps.init({loadMaps: true}))
+            // Add transformation tasks to the pipeline here.
+            // .pipe(uglify())
+            .on('error', gutil.log)
+        .pipe(sourcemaps.write('./'))
+        .pipe(gulp.dest('build/js/'));
+    });
 
 gulp.task('images', function() {
   return gulp.src('src/images/**/*')

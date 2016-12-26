@@ -6,8 +6,11 @@ html {
     text-rendering: optimizeLegibility;
 }
 body {
-    color: #333;
     overflow-x: hidden;
+    color: $base-text-color;
+}
+h1,h2,h3,h4,h5,h6 {
+    color: $base-title-color;
 }
 a, a:visited {
     color: $link-color;

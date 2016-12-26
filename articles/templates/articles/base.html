@@ -73,10 +73,10 @@
             </p>
         </footer>
 
-        {% block extra_footer_stuff %}
-        {% endblock extra_footer_stuff %}
-
         <script type="text/javascript" src="{% static 'articles/build/lib/node_modules/tinymce/tinymce.js' %}"></script>
         <script src="{% static 'articles/build/js/main.js' %}"></script>
+
+        {% block extra_footer_stuff %}
+        {% endblock extra_footer_stuff %}
     </body>
 </html>

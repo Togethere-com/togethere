@@ -152,10 +152,12 @@ os.environ['DJANGO_LIVE_TEST_SERVER_ADDRESS'] = 'localhost:8123'
 TINYMCE_JS_ROOT = "articles/build/lib/node_modules/tinymce"
 TINYMCE_JS_URL = os.path.join(TINYMCE_JS_ROOT, "tinymce.js")
 TINYMCE_DEFAULT_CONFIG = {
-    'theme': "modern",
-    'toolbar': "undo redo | bold italic | bullist numlist | blockquote | removeformat",
+    'theme': "inlite",
+    'selection_toolbar': "undo redo | h2 h3 | bold italic | bullist numlist | blockquote | removeformat",
+    'insert_toolbar': False,
     'menubar': False,
     'statusbar': False,
+    'inline': True,
     'schema': "html5",
     'max_height': 500,
     'max_width': 500,

@@ -1,0 +1,16 @@
+$purple: hsla(231,48%,48%,1);
+$orange: hsla(14,100%,57%,1);
+$blue: hsla(231,99%,59%,1);
+$grey: hsla(200,19%,18%,1);
+
+$light-purple: lighten($blue, 25%);
+$lighter-purple: lighten($blue, 50%);
+
+$light-grey: lighten($grey,25%);
+$lighter-grey: lighten($grey,50%);
+
+$link-color: $purple;
+$link-hover-color: $orange;
+
+$base-text-color: #333;
+$base-title-color: #444;

@@ -1,4 +1,4 @@
-<div class="article-form">
+<div>
 
     {% if form.errors %}
         {% for field in form %}
@@ -14,7 +14,13 @@
             </p>
         {% endfor %}
     {% endif %}
-    <form action="{% url 'article-submit' %}" method="POST">
+    <form
+        action="{% url 'article-submit' %}"
+        method="POST"
+        name="article-submit-form"
+        id="article-submit-form"
+        class="article-form"
+    >
         {% csrf_token %}
         {% for field in form %}
             <fieldset class="article-form__field">
@@ -42,6 +48,15 @@
                     </li>
                 {% endfor %}
                 </ul>
+            {% elif field.name == "text" %}
+                {{ field.label_tag }}
+                <div class="tinymce" id="article-text-input">
+                    <h3>Start typing your awesome article here</h3>
+                    <p>
+                        Select text to format it.
+                    </p>
+                </div>
+                <textarea id="id_text" class="hidden" name="text" style="display: none;"></textarea>
             {% else %}
                 {{ field.label_tag }} {{ field }}
             {% endif %}
