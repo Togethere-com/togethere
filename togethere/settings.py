@@ -174,3 +174,10 @@ HAYSTACK_CONNECTIONS = {
         'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
     },
 }
+
+# Django-csp configuration
+CSP_CONNECT_SRC = ("'self'","performance.typekit.net",)
+CSP_SCRIPT_SRC = ("'self'","use.typekit.net",)
+CSP_STYLE_SRC = ("'self'","'unsafe-inline'","use.typekit.net",)
+CSP_FONT_SRC = ("'self'","use.typekit.net","fonts.typekit.net",)
+CSP_IMG_SRC = ("'self'","p.typekit.net",)
