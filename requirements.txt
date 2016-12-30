@@ -2,7 +2,9 @@ coverage==4.2
 defusedxml==0.4.1
 Django==1.10
 django-allauth==0.26.1
-django-filter==0.14.0
+django-appconf==1.0.2
+django-csp==3.1
+django-filter==1.0.1
 django-filters-mixin==0.1.4
 django-haystack==2.5.1
 django-tinymce==2.3.0
