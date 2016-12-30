@@ -43,7 +43,13 @@ class ArticlePageTest(TestCase):
         self.client.login(username='testuser', password='12345')
         amsterdam = City.objects.create(name='AMS')
         rotterdam = City.objects.create(name='ROT')
-        first_article = Article.objects.create(title='foo',text='bla bla bla',author=self.user,city=amsterdam)
+        first_article = Article.objects.create(
+            title='foo',
+            text='bla bla bla',
+            author=self.user,
+            city=amsterdam,
+            score=1
+        )
         general_information = Category.objects.create(name='GEN')
         food_and_drinks = Category.objects.create(name='FOO')
         first_article.categories.add(general_information)
@@ -52,6 +58,12 @@ class ArticlePageTest(TestCase):
         response = self.client.get('/1/')
         self.assertTemplateUsed(response, 'articles/article.html')
         self.assertContains(response, 'foo')
+
+    def test_can_like_article(self):
+        response = self.client.post('/article-like/1/')
+        first_article = Article.objects.get(pk=1)
+        self.assertEqual(first_article.score, 2)
+        self.assertContains(response, 2)
 
     def test_can_submit_article(self):
         response = self.client.post('/article-submit/', data={

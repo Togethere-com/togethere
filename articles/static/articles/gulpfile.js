@@ -29,22 +29,39 @@ gulp.task('styles', function() {
   .pipe(notify({ message: 'Styles task complete' }));
 });
 
-    gulp.task('scripts', function () {
-      var b = browserify({
-        entries: ['src/scripts/modernizr.js', 'src/scripts/main.js'],
-        debug: true
-      }).transform(babelify, { presets: ["latest"] });
+gulp.task('mainjs', function () {
+  var b = browserify({
+    entries: ['src/scripts/modernizr.js', 'src/scripts/main.js'],
+    debug: true
+  }).transform(babelify, { presets: ["latest"] })
 
-      return b.bundle()
-        .pipe(source('main.js'))
-        .pipe(buffer())
-        .pipe(sourcemaps.init({loadMaps: true}))
-            // Add transformation tasks to the pipeline here.
-            // .pipe(uglify())
-            .on('error', gutil.log)
-        .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest('build/js/'));
-    });
+  return b.bundle()
+    .pipe(source('main.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({loadMaps: true}))
+        // Add transformation tasks to the pipeline here.
+        // .pipe(uglify())
+        .on('error', gutil.log)
+    .pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest('build/js/'));
+});
+
+gulp.task('likejs', function () {
+  var b = browserify({
+    entries: ['src/scripts/like.js'],
+    debug: true
+  }).transform(babelify, { presets: ["latest"] })
+
+  return b.bundle()
+    .pipe(source('like.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({loadMaps: true}))
+        // Add transformation tasks to the pipeline here.
+        // .pipe(uglify())
+        .on('error', gutil.log)
+    .pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest('build/js/'));
+});
 
 gulp.task('images', function() {
   return gulp.src('src/images/**/*')
@@ -58,14 +75,14 @@ gulp.task('clean', function() {
 });
 
 gulp.task('default', ['clean'], function() {
-  gulp.start('styles', 'scripts', 'images');
+  gulp.start('styles', 'mainjs', 'likejs', 'images');
 });
 
 gulp.task('watch', function() {
   // Watch .scss files
   gulp.watch('src/styles/**/*.scss', ['styles']);
   // Watch .js files
-  gulp.watch('src/scripts/**/*.js', ['scripts']);
+  gulp.watch('src/scripts/**/*.js', ['mainjs', 'likejs']);
   // Watch image files
   gulp.watch('src/images/**/*', ['images']);
   // Create LiveReload server

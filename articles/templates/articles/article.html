@@ -1,5 +1,7 @@
 {% extends 'articles/base.html' %}
 
+{% load staticfiles %}
+
 {% block main %}
 
 <article class="article">
@@ -10,6 +12,12 @@
         {{ article.text|safe }}
     </section>
     <footer class="article__meta">
+        <div class="likes">
+            <button id="heart-button" class="likes__button" data-article-id="{{article.id}}" data-liked="{{view.liked}}">
+                <svg id="heart-image" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33.15 28.56"><title>heart</title><path d="M9.39,1.42A8,8,0,0,0,3.75,3.73a7.82,7.82,0,0,0,0,11.15l12.12,12a1,1,0,0,0,1.39,0l12.13-12a7.83,7.83,0,0,0,0-11.16,8,8,0,0,0-11.28,0L16.59,5.25,15,3.73A8,8,0,0,0,9.39,1.42Z" stroke-miterlimit="10" stroke-width="2.83" id="heart-path"/></svg>
+                <span id="likes__count">{{article.score}} like(s)</span>
+            </button>
+        </div>
         <div>
             <span class="meta__category">
                 Category/ies:
@@ -46,3 +54,7 @@
     <h3>Submit an article</h3>
     <a href="{% url 'article-submit' %}" class="button">start writing</a>
 {% endblock sidebar-right %}
+
+{% block extra_footer_stuff %}
+<script src="{% static 'articles/build/js/like.js' %}"></script>
+{% endblock extra_footer_stuff %}

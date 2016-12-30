@@ -32,3 +32,31 @@
         content: '';
     }
 }
+
+#heart-button {
+    background: none;
+    color: $base-text-color;
+    font-size: 1rem;
+}
+#heart-image {
+    height: 2rem;
+    width: auto;
+    display: block;
+}
+#heart-path {
+    fill: #fff;
+    transition: 0.3s all ease-in-out;
+}
+#heart-button[data-liked='false'] #heart-path {
+    stroke: $purple;
+    &:hover {
+        fill: $purple;
+    }
+}
+#heart-button[data-liked='true'] #heart-path{
+    stroke: $orange;
+    fill: $orange;
+    &:hover {
+        fill: #fff;
+    }
+}

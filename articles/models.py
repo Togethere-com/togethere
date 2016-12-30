@@ -81,9 +81,18 @@ class Article(models.Model):
     text = models.TextField()
     categories = models.ManyToManyField(Category)
     city = models.ForeignKey(City)
+    score = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
         return reverse_lazy('article', kwargs={'pk': self.id})
+
+class Like(models.Model):
+    user = models.ForeignKey(User)
+    article = models.ForeignKey(Article)
+
+    # to ensure a user can only like an article once
+    class Meta:
+        unique_together = ('user','article')

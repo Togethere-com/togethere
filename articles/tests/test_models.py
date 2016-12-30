@@ -24,6 +24,29 @@ class ArticleModelTest(TestCase):
             article.full_clean()
             article.save()
 
+    def test_article_score(self):
+        amsterdam = City.objects.create(name='AMS')
+        rotterdam = City.objects.create(name='ROT')
+        first_article = Article.objects.create(
+            title='First Article Title',
+            text='First article text',
+            author=self.user,
+            city=amsterdam,
+            score=1
+        )
+        second_article = Article.objects.create(
+            title='Second Article Title',
+            text='Second article text',
+            author=self.user,
+            city=rotterdam,
+            score=2
+        )
+        self.assertGreater(second_article.score, first_article.score)
+        first_article.score = 3
+        first_article.save()
+        self.assertEqual(first_article.score, 3)
+        self.assertGreater(first_article.score, second_article.score)
+
 class CategoryModelTest(TestCase):
 
     def setUp(self):

@@ -1,11 +1,12 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.forms import CheckboxSelectMultiple, RadioSelect
+from django.db.models import F
 
-from .models import Article, Category, City, Profile
+from .models import Article, Category, City, Profile, Like
 from .forms import ArticleForm
 
 import django_filters
@@ -45,6 +46,12 @@ class ArticleView(DetailView):
     model = Article
     template_name = 'articles/article.html'
 
+    def liked(self):
+        liked_or_not = 'false'
+        if Like.objects.filter(article=self.object).exists():
+            liked_or_not = 'true'
+        return liked_or_not
+
 class ArticleSubmitView(CreateView):
     model = Article
     form_class = ArticleForm
@@ -73,6 +80,24 @@ class ArticleDeleteView(DeleteView):
     model = Article
     success_url = reverse_lazy('articles')
     template_name_suffix = '-delete'
+
+def ArticleLikeView(request, article_id):
+    article = get_object_or_404(Article, pk=article_id)
+
+    # check if the Like already exists
+    if Like.objects.filter(article=article).exists():
+        # unlike if Like object already exists
+        Like.objects.get(article=article).delete()
+        if article.score > 0:
+            article.score -= 1
+    else:
+        # otherwise register a Like
+        like = Like.objects.create(article=article,user=request.user)
+        like.save()
+        article.score += 1
+    article.save()
+
+    return HttpResponse(article.score)
 
 class CategoriesView(ListView):
     model = Category
