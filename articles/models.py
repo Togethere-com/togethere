@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse_lazy
+from django.utils import timezone
 
 class Category(models.Model):
     GENERAL_INFORMATION = 'GEN'
@@ -82,6 +83,7 @@ class Article(models.Model):
     categories = models.ManyToManyField(Category)
     city = models.ForeignKey(City)
     score = models.PositiveIntegerField(default=0)
+    pub_date = models.DateTimeField('date published',default=timezone.now,blank=True)
 
     def __str__(self):
         return self.title

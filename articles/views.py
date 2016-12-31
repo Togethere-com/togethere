@@ -28,7 +28,7 @@ class ArticleFilter(django_filters.FilterSet):
         model = Article
         # @todo
         # why do I need to exclude everything here?
-        exclude = ['password','title','text','author','categories','city','score']
+        exclude = ['password','title','text','author','categories','city','score','pub_date']
 
 class ArticlesView(FilterMixin, django_filters.views.FilterView):
     model = Article
@@ -41,6 +41,10 @@ class ArticlesView(FilterMixin, django_filters.views.FilterView):
         context = super(ArticlesView, self).get_context_data(**kwargs)
         context['form'] = ArticleForm
         return context
+
+    def get_queryset(self):
+        """Sort articles by score and then date (both descending)."""
+        return Article.objects.order_by('-score','-pub_date')
 
 class ArticleView(DetailView):
     model = Article
