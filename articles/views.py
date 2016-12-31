@@ -28,7 +28,7 @@ class ArticleFilter(django_filters.FilterSet):
         model = Article
         # @todo
         # why do I need to exclude everything here?
-        exclude = ['password','title','text','author','categories','city']
+        exclude = ['password','title','text','author','categories','city','score']
 
 class ArticlesView(FilterMixin, django_filters.views.FilterView):
     model = Article
