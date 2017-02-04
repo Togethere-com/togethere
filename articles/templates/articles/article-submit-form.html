@@ -25,7 +25,7 @@
         {% for field in form %}
             <fieldset class="article-form__field">
             {% if field.name == "categories"%}
-                {{ field.label_tag }}
+                {{ field.label_tag }} <small>(select one or more)</small>
                 <ul id={{ field.auto_id }}>
                 {% for checkbox in field %}
                     <li>

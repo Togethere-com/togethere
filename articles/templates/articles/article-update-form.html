@@ -1,3 +1,5 @@
+{% load bleach_tags %}
+
 <div>
 
     {% if form.errors %}
@@ -25,7 +27,7 @@
         {% for field in form %}
             <fieldset class="article-form__field">
             {% if field.name == "categories"%}
-                {{ field.label_tag }}
+                {{ field.label_tag }} <small>(select one or more)</small>
                 <ul id={{ field.auto_id }}>
                 {% for checkbox in field %}
                     <li>
@@ -50,11 +52,8 @@
                 </ul>
             {% elif field.name == "text" %}
                 {{ field.label_tag }}
-                <div class="tinymce" id="article-text-input">
-                    <h3>Start typing your awesome article here</h3>
-                    <p>
-                        Select text to format it.
-                    </p>
+                <div class="tinymce article__text" id="article-text-input">
+                    {{ article.text|bleach }}
                 </div>
                 <textarea id="id_text" class="hidden" name="text" style="display: none;"></textarea>
             {% else %}
