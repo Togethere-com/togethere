@@ -48,6 +48,7 @@ function DOMContentLoaded() {
       min_height: 100,
       min_width: 400,
       content_css: '/static/articles/build/css/tinymce.css',
+      valid_elements: 'h2,h3,strong/b,em/i,ul,ol,li,blockquote,p,br,header,article,footer,aside'
     }
     tinymce.remove();
     tinymce.init(tinymceConf);

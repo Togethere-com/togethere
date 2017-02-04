@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'tinymce',
     'django_filters',
     'haystack',
+    'django_bleach',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -165,6 +166,7 @@ TINYMCE_DEFAULT_CONFIG = {
     'min_height': 100,
     'min_width': 400,
     'content_css': '/static/articles/build/css/tinymce.css',
+    'valid_elements': 'h2,h3,strong/b,em/i,ul,ol,li,blockquote,p,br,header,article,footer,aside',
 }
 
 # Haystack configuration
@@ -181,3 +183,10 @@ CSP_SCRIPT_SRC = ("'self'","'unsafe-inline'","use.typekit.net",)
 CSP_STYLE_SRC = ("'self'","'unsafe-inline'","use.typekit.net",)
 CSP_FONT_SRC = ("'self'","use.typekit.net","fonts.typekit.net",)
 CSP_IMG_SRC = ("'self'","p.typekit.net",)
+
+# Django-bleach configuration
+BLEACH_ALLOWED_TAGS = ['p', 'b', 'i', 'em', 'strong', 'h2', 'h3', 'blockquote', 'br', 'ul', 'ol', 'li']
+BLEACH_ALLOWED_ATTRIBUTES = []
+BLEACH_ALLOWED_STYLES = []
+BLEACH_STRIP_TAGS = True
+BLEACH_STRIP_COMMENTS = True

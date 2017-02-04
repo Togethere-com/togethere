@@ -1,3 +1,5 @@
+{% load bleach_tags %}
+
 <ul class="article-list">
     {% for article in articles %}
     <li class="article-list__item" id="article_id_{{ article.id }}">
@@ -6,7 +8,7 @@
                 {{ article.title }}
             </h2>
             <p>
-                {{ article.text|safe|truncatechars:50 }}
+                {{ article.text|bleach|truncatechars:50 }}
             </p>
         </a>
     </li>

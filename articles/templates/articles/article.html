@@ -1,6 +1,7 @@
 {% extends 'articles/base.html' %}
 
 {% load staticfiles %}
+{% load bleach_tags %}
 
 {% block main %}
 
@@ -9,7 +10,7 @@
         <h1>{{ article.title }}</h1>
     </header>
     <section class="article__text">
-        {{ article.text|safe }}
+        {{ article.text|bleach }}
     </section>
     <footer class="article__meta">
         <div class="likes">
