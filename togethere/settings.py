@@ -95,6 +95,13 @@ ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL=None
 ACCOUNT_EMAIL_REQUIRED=True
 ACCOUNT_AUTHENTICATION_METHOD="email"
 ACCOUNT_EMAIL_VERIFICATION = "optional"
+
+SOCIALACCOUNT_PROVIDERS = {
+    'facebook': {
+        'is_auto_signup_allowed': False,
+    }
+}
+
 # allauth end
 
 WSGI_APPLICATION = 'togethere.wsgi.application'
